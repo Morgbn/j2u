@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 docs/.vitepress/cache
+auto-imports.d.ts
+components.d.ts
+.eslintrc-auto-import.json
 
 # Editor directories and files
 .vscode

@@ -9,7 +9,3 @@
     <MyButton2 label="Text" type="text" />
   </div>
 </template>
-
-<script setup>
-import { MyButton, MyButton2 } from '../../../src/components'
-</script>

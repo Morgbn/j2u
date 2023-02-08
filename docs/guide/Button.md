@@ -13,10 +13,6 @@ The button component is a simple customizable button.
 | :------ | :------------------------ | :------------ |
 | `click` | Triggered on button click | `$clickEvent` |
 
-<<< @/guide/button/ButtonExample.vue
+<<< @/examples/Button.vue
 
 <ButtonExample />
-
-<script setup>
-import ButtonExample from './ButtonExample.vue'
-</script>

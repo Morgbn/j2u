@@ -1,0 +1,56 @@
+{
+  "name": "vue3-jsonschema-form",
+  "description": "Form generator based on JSON Schema",
+  "license": "MIT",
+  "keywords": [
+    "vue",
+    "vuejs3",
+    "json-schema",
+    "ui",
+    "ui-components",
+    "ui-library",
+    "form"
+  ],
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/vue3-jsonschema-form-ts.umd.js",
+  "module": "./dist/vue3-jsonschema-form-ts.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vue3-jsonschema-form.es.js",
+      "require": "./dist/vue3-jsonschema-form.umd.js"
+    },
+    "./dist/vue3-jsonschema-form.css": {
+      "import": "./dist/vue3-jsonschema-form.css",
+      "require": "./dist/vue3-jsonschema-form.css"
+    }
+  },
+  "types": "./dist/main.d.ts",
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "lint": "eslint --ext .js,.ts,.vue .",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.45"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "eslint": "^8.33.0",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "typescript": "^4.9.3",
+    "vite": "^4.1.0",
+    "vite-plugin-dts": "^1.7.2",
+    "vitepress": "^1.0.0-alpha.45",
+    "vue": "^3.2.47",
+    "vue-tsc": "^1.0.24"
+  },
+  "dependencies": {
+    "@nuxtjs/eslint-config-typescript": "^12.0.0",
+    "eslint-plugin-jsdoc": "^39.8.0"
+  }
+}

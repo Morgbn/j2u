@@ -18,47 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { ISchemaObject, IUiSchema, IAnyObject, IComponent, ISchema, IConfigComponent } from '@/types'
-
-const defaultComponents: IConfigComponent = {
-  string: {
-    component: defineAsyncComponent(() => import('@/components/defaults/input.vue')),
-    props: () => ({ type: 'text' })
-  },
-  number: {
-    component: defineAsyncComponent(() => import('@/components/defaults/input.vue')),
-    props: () => ({ type: 'float' })
-  },
-  integer: {
-    component: defineAsyncComponent(() => import('@/components/defaults/input.vue')),
-    props: () => ({ type: 'integer' })
-  },
-  boolean: {
-    component: defineAsyncComponent(() => import('@/components/defaults/checkbox.vue'))
-  },
-  select: {
-    component: defineAsyncComponent(() => import('@/components/defaults/select.vue')),
-    props: (propName, schema) => ({ options: schema.enum })
-  },
-  radio: {
-    component: defineAsyncComponent(() => import('@/components/defaults/radio.vue')),
-    props: (propName, schema) => ({ options: schema.enum })
-  },
-  object: {
-    component: defineAsyncComponent(() => import('@/components/FormItem.vue')),
-    props: (propName, schema, uiSchema, wrapper) => {
-      return { schema, uiSchema, wrapper }
-    }
-  }
-}
-
-const defaultWrapper: IComponent = {
-  component: defineAsyncComponent(() => import('@/components/defaults/wrapper.vue')),
-  props: (propName, schema, uiSchema) => ({
-    title: schema.title || schema.title === '' ? schema.title : propName,
-    disabled: uiSchema?.disabled
-  })
-}
+import type { ISchemaObject, IUiSchema, IAnyObject, IComponent, ISchema } from '@/types'
 
 const props = withDefaults(defineProps<{
   schema: ISchemaObject,

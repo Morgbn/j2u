@@ -10,6 +10,7 @@ export default {
   plugins: [
     AutoImport({
       imports: ['vue'],
+      dirs: ['../src/utils/**'],
       include: [/\.vue$/]
     }),
     Components({

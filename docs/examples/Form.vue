@@ -25,22 +25,33 @@ const schema = {
       type: 'boolean',
       title: 'Agree'
     },
-    d: {
-      type: 'string',
-      title: 'User Food',
-      enum: ['🫓', '🍕', '🍔', '🥗']
-    },
     e: {
       type: 'string',
       title: 'User Type',
       enum: ['User', 'Editor', 'Admin']
+    },
+    obj: {
+      type: 'object',
+      title: 'Object',
+      properties: {
+        obj_a: { type: 'string' },
+        obj_b: {
+          type: 'string',
+          title: 'User Food',
+          enum: ['🫓', '🍕', '🍔', '🥗']
+        }
+      }
     }
   }
 }
 const uiSchema = {
   properties: {
-    d: {
-      uiType: 'radio'
+    obj: {
+      properties: {
+        obj_b: {
+          uiType: 'radio'
+        }
+      }
     }
   }
 }

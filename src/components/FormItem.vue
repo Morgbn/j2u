@@ -1,5 +1,5 @@
 <template>
-  <div class="name">
+  <div class="form-item">
     <component
       :is="item.wrapper"
       v-for="item in items"
@@ -8,7 +8,8 @@
     >
       <component
         :is="item.component"
-        :model-value="modelValue[item.name]"
+        v-if="props.modelValue"
+        :model-value="props.modelValue[item.name]"
         v-bind="item.args"
         @update:model-value="(v: any) => onInput(item.name, v)"
       />
@@ -42,6 +43,12 @@ const defaultComponents: IConfigComponent = {
   radio: {
     component: defineAsyncComponent(() => import('@/components/defaults/radio.vue')),
     props: (propName, schema) => ({ options: schema.enum })
+  },
+  object: {
+    component: defineAsyncComponent(() => import('@/components/FormItem.vue')),
+    props: (propName, schema, uiSchema, wrapper) => {
+      return { schema, uiSchema, wrapper }
+    }
   }
 }
 
@@ -53,12 +60,14 @@ const defaultWrapper: IComponent = {
   })
 }
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   schema: ISchemaObject,
   uiSchema: IUiSchema,
   modelValue: IAnyObject
   wrapper?: IComponent
-}>()
+}>(), {
+  modelValue: () => ({})
+})
 
 const emit = defineEmits<{(e: 'update:modelValue', value: IAnyObject): void }>()
 
@@ -70,9 +79,9 @@ const items = computed(() => {
       const uiType = ui.uiType ?? getType(schema)
       const { component, props: f } = defaultComponents[uiType] ??
         defaultComponents.input
-      const args = f?.(name, schema, ui) ?? {}
+      const args = f?.(name, schema, ui, props.wrapper) ?? {}
       const wrapperArgs = fW?.(name, schema, ui) ?? {}
-      return { name, component, args, wrapper, wrapperArgs }
+      return { name, component, args, wrapper, wrapperArgs, uiType }
     })
 })
 

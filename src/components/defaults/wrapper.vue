@@ -22,6 +22,9 @@ const props = withDefaults(defineProps<{
 .pure-control-group label {
   display: block;
 }
+.pure-control-group > .form-item {
+  margin-left: 12px;
+}
 .pure-control-group--disabled {
   opacity: 0.5;
   pointer-events: none;

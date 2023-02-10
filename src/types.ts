@@ -51,7 +51,7 @@ export interface IUiSchema {
 }
 
 // config types
-type PropsFunction = (propName: string, schema: any, uiSchema?: IUiSchema) => IAnyObject
+type PropsFunction = (propName: string, schema: any, uiSchema?: IUiSchema, wrapper?: IComponent) => IAnyObject
 
 export interface IComponent {
   component: any,

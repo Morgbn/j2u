@@ -27,12 +27,13 @@ const schema = {
     },
     d: {
       type: 'string',
+      title: 'User Food',
+      enum: ['🫓', '🍕', '🍔', '🥗']
+    },
+    e: {
+      type: 'string',
       title: 'User Type',
-      enum: [
-        'User',
-        'Editor',
-        'Admin'
-      ]
+      enum: ['User', 'Editor', 'Admin']
     }
   }
 }

@@ -1,12 +1,9 @@
 <template>
-  <select class="json-schema-form-select" @input="handleInput">
-    <option style="display:none;" :selected="!props.modelValue ? 'true' : 'false'" />
-    <option
-      v-for="(option, index) in options"
-      :key="index"
-      :selected="option === props.modelValue ? 'true' : 'false'"
-      :value="option"
-    >
+  <select :value="props.modelValue" class="json-schema-form-select" @input="handleInput">
+    <option disabled value="">
+      Please select one
+    </option>
+    <option v-for="(option, index) in props.options" :key="index" :value="option">
       {{ option }}
     </option>
   </select>
@@ -21,6 +18,12 @@ const props = withDefaults(defineProps<{
   options: () => []
 })
 const emit = defineEmits<{(e: 'update:modelValue', value: string): void }>()
+
+watchEffect(() => {
+  if (props.modelValue && !props.options.includes(props.modelValue)) {
+    emit('update:modelValue', '')
+  }
+})
 
 function handleInput (event: Event) {
   emit('update:modelValue', (event.target as HTMLInputElement).value)

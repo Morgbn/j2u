@@ -35,6 +35,10 @@ const defaultComponents: IConfigComponent = {
   boolean: {
     component: defineAsyncComponent(() => import('@/components/defaults/checkbox.vue'))
   },
+  select: {
+    component: defineAsyncComponent(() => import('@/components/defaults/select.vue')),
+    props: (propName, schema) => ({ options: schema.enum })
+  },
   radio: {
     component: defineAsyncComponent(() => import('@/components/defaults/radio.vue')),
     props: (propName, schema) => ({ options: schema.enum })
@@ -63,7 +67,7 @@ const items = computed(() => {
   return Object.entries(props.schema.properties)
     .map(([name, schema]: [string, ISchema]) => {
       const ui = props.uiSchema.properties?.[name] || {}
-      const uiType = ui.uiType ?? schema.type
+      const uiType = ui.uiType ?? getType(schema)
       const { component, props: f } = defaultComponents[uiType] ??
         defaultComponents.input
       const args = f?.(name, schema, ui) ?? {}
@@ -71,6 +75,10 @@ const items = computed(() => {
       return { name, component, args, wrapper, wrapperArgs }
     })
 })
+
+function getType (schema: ISchema) {
+  return schema.enum ? 'select' : schema.type
+}
 
 function onInput (key: string, val: any) {
   const newVal = { ...props.modelValue } as IAnyObject

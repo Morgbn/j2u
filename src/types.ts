@@ -48,6 +48,7 @@ export interface IUiSchema {
   properties?: { [key: string]: IUiSchema }
   disabled?: boolean,
   uiType?: string
+  items?: IUiSchema
 }
 
 // config types

@@ -30,15 +30,19 @@ const schema = {
       title: 'User Type',
       enum: ['User', 'Editor', 'Admin']
     },
-    obj: {
-      type: 'object',
-      title: 'Object',
-      properties: {
-        obj_a: { type: 'string' },
-        obj_b: {
-          type: 'string',
-          title: 'User Food',
-          enum: ['🫓', '🍕', '🍔', '🥗']
+    arr: {
+      type: 'array',
+      title: 'Array',
+      items: {
+        type: 'object',
+        title: 'Object',
+        properties: {
+          obj_a: { type: 'string' },
+          obj_b: {
+            type: 'string',
+            title: 'User Food',
+            enum: ['🫓', '🍕', '🍔', '🥗']
+          }
         }
       }
     }
@@ -46,10 +50,12 @@ const schema = {
 }
 const uiSchema = {
   properties: {
-    obj: {
-      properties: {
-        obj_b: {
-          uiType: 'radio'
+    arr: {
+      items: {
+        properties: {
+          obj_b: {
+            uiType: 'radio'
+          }
         }
       }
     }

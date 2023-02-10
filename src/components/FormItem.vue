@@ -41,7 +41,7 @@ const items = computed(() => {
         defaultComponents.input
       const args = f?.(name, schema, ui, props.wrapper) ?? {}
       const wrapperArgs = fW?.(name, schema, ui) ?? {}
-      return { name, component, args, wrapper, wrapperArgs, uiType }
+      return { name, component, args, wrapper, wrapperArgs }
     })
 })
 

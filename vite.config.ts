@@ -33,6 +33,7 @@ export default defineConfig({
     }),
     AutoImport({
       imports: ['vue'],
+      dirs: ['./src/utils/**'],
       include: [/\.vue$/],
       eslintrc: {
         enabled: true

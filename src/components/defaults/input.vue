@@ -1,0 +1,39 @@
+<template>
+  <input
+    :type="isNumber ? 'number' : props.type"
+    :value="props.modelValue"
+    :step="props.type === 'float' ? 0.1 : ''"
+    @input="handleInput"
+  >
+</template>
+
+<script lang="ts" setup>
+const props = withDefaults(defineProps<{
+  modelValue?: string|number,
+  type?: 'text'|'integer'|'float',
+  allowNegative?: boolean
+}>(), {
+  modelValue: '',
+  type: 'text',
+  allowNegative: true
+})
+const emit = defineEmits<{(e: 'update:modelValue', value: string|number|undefined): void }>()
+
+const isNumber = computed(() => props.type === 'integer' || props.type === 'float')
+const isFloat = computed(() => props.type === 'float')
+
+function handleInput (event: Event) {
+  const val = (event.target as HTMLInputElement).value
+  if (isNumber.value) {
+    if (val === '') { return emit('update:modelValue', undefined) }
+    return emit('update:modelValue', isFloat.value ? parseFloat(val) : parseInt(val))
+  }
+  emit('update:modelValue', val)
+}
+</script>
+
+<style>
+.pure-radio {
+  margin-left: 1px!important;
+}
+</style>

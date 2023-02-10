@@ -5,6 +5,7 @@
         :schema="props.schema"
         :ui-schema="uiSchema"
         :model-value="modelValue"
+        :components="components"
         :wrapper="wrapper"
         @update:model-value="(v: IAnyObject) => emit('update:modelValue', v)"
       />
@@ -32,6 +33,8 @@ const props = withDefaults(defineProps<{
 })
 
 const emit = defineEmits<{(e: 'update:modelValue', value: IAnyObject): void }>()
+
+const components = computed(() => ({ ...defaultComponents, ...props.components }))
 
 function submit () {
   console.log('submit')

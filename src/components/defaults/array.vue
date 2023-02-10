@@ -15,6 +15,8 @@
         <component
           :is="item.component"
           :model-value="el"
+          :components="components"
+          :wrapper="wrapper"
           v-bind="item.args"
           @update:model-value="(v: any) => onInput(i, v)"
         />
@@ -27,13 +29,14 @@
 </template>
 
 <script lang="ts" setup>
-import type { ISchemaArray, IUiSchema, IComponent, ISchema } from '@/types'
+import type { ISchemaArray, IUiSchema, IComponent, IConfigComponent, ISchema } from '@/types'
 
 const props = withDefaults(defineProps<{
   schema: ISchemaArray,
   uiSchema: IUiSchema,
   modelValue: Array<any>
   wrapper?: IComponent
+  components: IConfigComponent
 }>(), {
   modelValue: () => ([])
 })
@@ -43,8 +46,8 @@ const item = computed(() => {
   const { component: wrapper, props: fW } = props.wrapper ?? defaultWrapper
   const ui = props.uiSchema?.items || {}
   const uiType = ui.uiType ?? getType(props.schema.items)
-  const { component, props: f } = defaultComponents[uiType] ??
-    defaultComponents.input
+  const { component, props: f } = props.components[uiType] ??
+    props.components.input
   const args = f?.('item', props.schema.items, ui, props.wrapper) ?? {}
   const wrapperArgs = fW?.('item', props.schema.items, ui) ?? {}
   return { name: 'item', component, args, wrapper, wrapperArgs, uiType }

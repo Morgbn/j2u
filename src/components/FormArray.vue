@@ -1,7 +1,11 @@
 <template>
   <component
-    :is="components.array.component"
+    :is="props.wrappers.array.component"
     :model-value="props.modelValue"
+    :name="name"
+    :schema="schema"
+    :ui-schema="uiSchema"
+    :path="path"
     @add="addNewItem"
     @swap="swap"
     @remove="remove"
@@ -12,8 +16,6 @@
           :is="item.component"
           :model-value="el"
           v-bind="item.args"
-          :components="components"
-          :wrapper="wrapper"
           :path="`${path}[${index}]`"
           @update:model-value="(v: any) => onInput(index, v)"
         />
@@ -23,14 +25,14 @@
 </template>
 
 <script lang="ts" setup>
-import type { ISchemaArray, IUiSchema, IComponent, IConfigComponent, ISchema } from '@/types'
+import type { ISchemaArray, IUiSchema, IConfigComponent } from '@/types'
 
 const props = withDefaults(defineProps<{
   name: string,
   schema: ISchemaArray,
   uiSchema: IUiSchema,
   modelValue: Array<any>
-  wrapper: IComponent
+  wrappers: IConfigComponent
   components: IConfigComponent
   path: string
 }>(), {
@@ -38,20 +40,8 @@ const props = withDefaults(defineProps<{
 })
 const emit = defineEmits<{(e: 'update:modelValue', value: Array<any>): void }>()
 
-const item = computed(() => {
-  const { component: wrapper, props: fW } = props.wrapper
-  const ui = props.uiSchema?.items || {}
-  const uiType = ui.uiType ?? getType(props.schema.items)
-  const { component, props: f } = props.components[uiType] ??
-    props.components.input
-  const args = f?.(props.name, props.schema.items, ui, props.wrapper) ?? {}
-  const wrapperArgs = fW?.(props.name, props.schema.items, ui) ?? {}
-  return { name: props.name, component, args, wrapper, wrapperArgs, uiType }
-})
-
-function getType (schema?: ISchema) {
-  return !schema ? 'object' : schema.enum ? 'select' : schema.type
-}
+const item = computed(() =>
+  getItemInfo(props.name, props.schema.items, props.uiSchema?.items || {}, props.path, props.components, props.wrappers))
 
 function updateValue (action: (arg: Array<any>) => void) {
   const newVal = [...props.modelValue]

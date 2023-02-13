@@ -1,5 +1,5 @@
 import { defineAsyncComponent } from 'vue'
-import type { IConfigComponent, IComponent } from '@/types'
+import type { IConfigComponent } from '@/types'
 
 export const defaultComponents: IConfigComponent = {
   string: {
@@ -19,30 +19,34 @@ export const defaultComponents: IConfigComponent = {
   },
   select: {
     component: defineAsyncComponent(() => import('@/components/defaults/select.vue')),
-    props: (propName, schema) => ({ options: schema.enum })
+    props: (_, schema) => ({ options: schema.enum })
   },
   radio: {
     component: defineAsyncComponent(() => import('@/components/defaults/radio.vue')),
     props: (propName, schema) => ({ name: propName, options: schema.enum })
-  },
-  object: {
-    component: defineAsyncComponent(() => import('@/components/FormItem.vue')),
-    props: (propName, schema, uiSchema, wrapper) => {
-      return { schema, uiSchema, wrapper }
-    }
-  },
-  array: {
-    component: defineAsyncComponent(() => import('@/components/defaults/array.vue')),
-    props: (propName, schema, uiSchema, wrapper) => {
-      return { schema, uiSchema, wrapper }
-    }
   }
 }
 
-export const defaultWrapper: IComponent = {
-  component: defineAsyncComponent(() => import('@/components/defaults/wrapper.vue')),
-  props: (propName, schema, uiSchema) => ({
-    title: schema.title || schema.title === '' ? schema.title : propName,
-    disabled: uiSchema?.disabled
-  })
+export const rootComponents: IConfigComponent = {
+  object: {
+    component: defineAsyncComponent(() => import('@/components/FormItem.vue')),
+    props: (_, schema, uiSchema) => ({ schema, uiSchema })
+  },
+  array: {
+    component: defineAsyncComponent(() => import('@/components/FormArray.vue')),
+    props: (_, schema, uiSchema) => ({ schema, uiSchema })
+  }
+}
+
+export const defaultWrappers: IConfigComponent = {
+  item: {
+    component: defineAsyncComponent(() => import('@/components/defaults/wrapper.vue')),
+    props: (propName, schema, uiSchema) => ({
+      title: schema.title || schema.title === '' ? schema.title : propName,
+      disabled: uiSchema?.disabled
+    })
+  },
+  array: {
+    component: defineAsyncComponent(() => import('@/components/defaults/array.vue'))
+  }
 }

@@ -19,13 +19,13 @@
 </template>
 
 <script lang="ts" setup>
-import type { ISchemaObject, IUiSchema, IAnyObject, IComponent, IConfigComponent, ISchema } from '@/types'
+import type { ISchemaObject, IUiSchema, IAnyObject, IConfigComponent, ISchema } from '@/types'
 
 const props = withDefaults(defineProps<{
   schema: ISchemaObject
   uiSchema: IUiSchema
   modelValue: IAnyObject
-  wrapper: IComponent
+  wrappers: IConfigComponent
   components: IConfigComponent
   path?: string
 }>(), {
@@ -35,29 +35,10 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits<{(e: 'update:modelValue', value: IAnyObject): void }>()
 
-const arrayComponent = defineAsyncComponent(() => import('./FormArray.vue'))
 const items = computed(() => {
-  const { component: wrapper, props: fW } = props.wrapper
   return Object.entries(props.schema.properties)
-    .map(([name, schema]: [string, ISchema]) => {
-      const uiSchema = props.uiSchema.properties?.[name] || {}
-      const wrapperArgs = fW?.(name, schema, uiSchema) ?? {}
-      const uiType = uiSchema.uiType ?? getType(schema)
-      const path = `${props.path}.${name}`
-      if (schema.type === 'array') {
-        const args = { ...props, name: '', schema, uiSchema }
-        return { name, component: arrayComponent, args, wrapper, wrapperArgs, path }
-      }
-      const { component, props: f } = props.components[uiType] ??
-        props.components.input
-      const args = f?.(name, schema, uiSchema, props.wrapper) ?? {}
-      return { name, component, args, wrapper, wrapperArgs, path }
-    })
+    .map(([name, schema]: [string, ISchema]) => getItemInfo(name, schema, props.uiSchema.properties?.[name] || {}, props.path, props.components, props.wrappers))
 })
-
-function getType (schema: ISchema) {
-  return schema.enum ? 'select' : schema.type
-}
 
 function onInput (key: string, val: any) {
   const newVal = { ...props.modelValue } as IAnyObject

@@ -3,7 +3,7 @@
     Reset
   </button>
   <pre>{{ data }}</pre>
-  <JsonSchema v-model="data" :schema="schema" :ui-schema="uiSchema" :components="customComponents" :wrapper="customWrapper" />
+  <JsonSchema v-model="data" :schema="schema" :ui-schema="uiSchema" :components="customComponents" :wrappers="customWrappers" />
 </template>
 
 <script setup>
@@ -64,6 +64,15 @@ const uiSchema = {
 const customComponents = {
   boolean: {
     component: defineAsyncComponent(() => import('./CustomCheckbox.vue'))
+  }
+}
+const customWrappers = {
+  item: {
+    component: defineAsyncComponent(() => import('./CustomWrapper.vue')),
+    props: (propName, schema, uiSchema) => ({
+      title: schema.title || schema.title === '' ? schema.title : propName,
+      disabled: uiSchema?.disabled
+    })
   },
   array: {
     component: defineAsyncComponent(() => import('./CustomArray.vue')),
@@ -71,12 +80,5 @@ const customComponents = {
       return { schema, uiSchema, wrapper }
     }
   }
-}
-const customWrapper = {
-  component: defineAsyncComponent(() => import('./CustomWrapper.vue')),
-  props: (propName, schema, uiSchema) => ({
-    title: schema.title || schema.title === '' ? schema.title : propName,
-    disabled: uiSchema?.disabled
-  })
 }
 </script>

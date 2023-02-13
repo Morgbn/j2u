@@ -6,7 +6,7 @@
         :ui-schema="uiSchema"
         :model-value="modelValue"
         :components="components"
-        :wrapper="wrapper"
+        :wrappers="wrappers"
         @update:model-value="(v: IAnyObject) => emit('update:modelValue', v)"
       />
       <button type="submit" style="position: absolute; left: -100px; visibility: hidden" @click.prevent="submit()" />
@@ -15,14 +15,14 @@
 </template>
 
 <script lang="ts" setup>
-import type { JSONSchema7, IUiSchema, IAnyObject, IConfigComponent, IComponent } from '@/types'
+import type { JSONSchema7, IUiSchema, IAnyObject, IConfigComponent } from '@/types'
 
 const props = withDefaults(defineProps<{
   schema: JSONSchema7,
   uiSchema?: IUiSchema,
   modelValue?: IAnyObject,
   components?: IConfigComponent,
-  wrapper?: IComponent,
+  wrappers?: IConfigComponent,
   errors?: any,
   useDefaultStyles?: boolean
 }>(), {
@@ -34,8 +34,8 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits<{(e: 'update:modelValue', value: IAnyObject): void }>()
 
-const components = computed(() => ({ ...defaultComponents, ...props.components }))
-const wrapper = computed(() => props.wrapper ?? defaultWrapper)
+const components = computed(() => ({ ...defaultComponents, ...props.components, ...rootComponents }))
+const wrappers = computed(() => props.wrappers ?? defaultWrappers)
 
 function submit () {
   console.log('submit')

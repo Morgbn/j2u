@@ -64,6 +64,12 @@ const uiSchema = {
 const customComponents = {
   boolean: {
     component: defineAsyncComponent(() => import('./CustomCheckbox.vue'))
+  },
+  array: {
+    component: defineAsyncComponent(() => import('./CustomArray.vue')),
+    props: (propName, schema, uiSchema, wrapper) => {
+      return { schema, uiSchema, wrapper }
+    }
   }
 }
 const customWrapper = {

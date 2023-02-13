@@ -10,8 +10,8 @@
         :is="item.component"
         v-if="props.modelValue"
         :model-value="props.modelValue[item.name]"
-        :components="components"
-        :wrapper="wrapper"
+        :components="props.components"
+        :wrapper="props.wrapper"
         v-bind="item.args"
         @update:model-value="(v: any) => onInput(item.name, v)"
       />
@@ -26,7 +26,7 @@ const props = withDefaults(defineProps<{
   schema: ISchemaObject
   uiSchema: IUiSchema
   modelValue: IAnyObject
-  wrapper?: IComponent
+  wrapper: IComponent
   components: IConfigComponent
 }>(), {
   modelValue: () => ({})
@@ -34,16 +34,21 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits<{(e: 'update:modelValue', value: IAnyObject): void }>()
 
+const arrayComponent = defineAsyncComponent(() => import('./FormArray.vue'))
 const items = computed(() => {
-  const { component: wrapper, props: fW } = props.wrapper ?? defaultWrapper
+  const { component: wrapper, props: fW } = props.wrapper
   return Object.entries(props.schema.properties)
     .map(([name, schema]: [string, ISchema]) => {
-      const ui = props.uiSchema.properties?.[name] || {}
-      const uiType = ui.uiType ?? getType(schema)
+      const uiSchema = props.uiSchema.properties?.[name] || {}
+      const wrapperArgs = fW?.(name, schema, uiSchema) ?? {}
+      const uiType = uiSchema.uiType ?? getType(schema)
+      if (schema.type === 'array') {
+        const args = { name: '', schema, uiSchema }
+        return { name, component: arrayComponent, args, wrapper, wrapperArgs }
+      }
       const { component, props: f } = props.components[uiType] ??
         props.components.input
-      const args = f?.(name, schema, ui, props.wrapper) ?? {}
-      const wrapperArgs = fW?.(name, schema, ui) ?? {}
+      const args = f?.(name, schema, uiSchema, props.wrapper) ?? {}
       return { name, component, args, wrapper, wrapperArgs }
     })
 })

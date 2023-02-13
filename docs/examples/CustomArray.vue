@@ -1,21 +1,21 @@
 <template>
   <div class="form-array">
     <template v-for="(item, i) in props.modelValue" :key="i">
-      {{ i }})
+      🗒️{{ i }}
       <button v-if="i" @click.prevent="emit('swap', i, -1)">
-        ▲
+        🔼
       </button>
       <button v-if="i < props.modelValue.length - 1" @click.prevent="emit('swap', i, 1)">
-        ▼
+        🔽
       </button>
-      <button @click.prevent="emit('remove', i)">
-        ✕
+      <button style="float: right" @click.prevent="emit('remove', i)">
+        🗑️
       </button>
       <slot :item="item" :index="i" />
       <br>
     </template>
     <button @click.prevent="emit('add')">
-      Add
+      ➕Add
     </button>
   </div>
 </template>

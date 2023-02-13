@@ -9,7 +9,7 @@ export function getItemInfo (name: string, schema: ISchema, uiSchema: IUiSchema,
   const wrapperArgs = fWrapper?.(name, schema, uiSchema) ?? {}
   const uiType = uiSchema.uiType ?? getType(schema)
   const path = `${rootPath}.${name}`
-  const { component, props: f } = components[uiType] ?? components.input
+  const { component, props: f } = components[uiType] ?? components.string
   const args = f?.(name, schema, uiSchema) ?? {}
   if (schema.type === 'object' || schema.type === 'array') {
     args.wrappers = wrappers

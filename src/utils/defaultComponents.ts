@@ -23,7 +23,7 @@ export const defaultComponents: IConfigComponent = {
   },
   radio: {
     component: defineAsyncComponent(() => import('@/components/defaults/radio.vue')),
-    props: (propName, schema) => ({ options: schema.enum })
+    props: (propName, schema) => ({ name: propName, options: schema.enum })
   },
   object: {
     component: defineAsyncComponent(() => import('@/components/FormItem.vue')),

@@ -1,26 +1,26 @@
 <template>
   <div>
-    <div v-for="(option, index) in props.options" :key="index">
-      <label :for="option + 'radio'" class="pure-radio">
-        <input
-          :id="option + 'radio'"
-          type="radio"
-          name="radio1"
-          :checked="props.modelValue + '' === option"
-          :value="option"
-          @input="handleInput"
-        >
-        {{ option }}
-      </label>
-    </div>
+    <label v-for="(option, index) in props.options" :key="index" :for="path + option" class="pure-radio">
+      <input
+        :id="path + option"
+        type="radio"
+        :checked="props.modelValue + '' === option"
+        :value="option"
+        @input="handleInput"
+      >
+      {{ option }}
+    </label>
   </div>
 </template>
 
 <script lang="ts" setup>
 const props = withDefaults(defineProps<{
+  name?: string,
   modelValue?: string,
   options?: Array<any>
+  path: string
 }>(), {
+  name: '',
   modelValue: '',
   options: () => []
 })

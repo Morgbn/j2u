@@ -11,9 +11,10 @@
         <component
           :is="item.component"
           :model-value="el"
+          v-bind="item.args"
           :components="components"
           :wrapper="wrapper"
-          v-bind="item.args"
+          :path="`${path}[${index}]`"
           @update:model-value="(v: any) => onInput(index, v)"
         />
       </component>
@@ -31,6 +32,7 @@ const props = withDefaults(defineProps<{
   modelValue: Array<any>
   wrapper: IComponent
   components: IConfigComponent
+  path: string
 }>(), {
   modelValue: () => ([])
 })

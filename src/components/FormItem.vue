@@ -9,10 +9,9 @@
       <component
         :is="item.component"
         v-if="props.modelValue"
-        :model-value="props.modelValue[item.name]"
-        :components="props.components"
-        :wrapper="props.wrapper"
         v-bind="item.args"
+        :model-value="props.modelValue[item.name]"
+        :path="item.path"
         @update:model-value="(v: any) => onInput(item.name, v)"
       />
     </component>
@@ -28,8 +27,10 @@ const props = withDefaults(defineProps<{
   modelValue: IAnyObject
   wrapper: IComponent
   components: IConfigComponent
+  path?: string
 }>(), {
-  modelValue: () => ({})
+  modelValue: () => ({}),
+  path: '$form'
 })
 
 const emit = defineEmits<{(e: 'update:modelValue', value: IAnyObject): void }>()
@@ -42,14 +43,15 @@ const items = computed(() => {
       const uiSchema = props.uiSchema.properties?.[name] || {}
       const wrapperArgs = fW?.(name, schema, uiSchema) ?? {}
       const uiType = uiSchema.uiType ?? getType(schema)
+      const path = `${props.path}.${name}`
       if (schema.type === 'array') {
-        const args = { name: '', schema, uiSchema }
-        return { name, component: arrayComponent, args, wrapper, wrapperArgs }
+        const args = { ...props, name: '', schema, uiSchema }
+        return { name, component: arrayComponent, args, wrapper, wrapperArgs, path }
       }
       const { component, props: f } = props.components[uiType] ??
         props.components.input
       const args = f?.(name, schema, uiSchema, props.wrapper) ?? {}
-      return { name, component, args, wrapper, wrapperArgs }
+      return { name, component, args, wrapper, wrapperArgs, path }
     })
 })
 

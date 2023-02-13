@@ -11,12 +11,13 @@
     @remove="remove"
   >
     <template #default="{ item: el, index }">
-      <component :is="item.wrapper" v-bind="item.wrapperArgs">
+      <component :is="item.wrapper" v-bind="item.wrapperArgs" :required="item.required">
         <component
           :is="item.component"
           :model-value="el"
           v-bind="item.args"
           :path="`${path}[${index}]`"
+          :required="item.required"
           @update:model-value="(v: any) => onInput(index, v)"
         />
       </component>

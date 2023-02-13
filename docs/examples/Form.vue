@@ -43,10 +43,12 @@ const schema = {
             title: 'User Food',
             enum: ['🫓', '🍕', '🍔', '🥗']
           }
+        },
+        required: ['obj_b']
         }
       }
-    }
-  }
+  },
+  required: ['b']
 }
 const uiSchema = {
   properties: {

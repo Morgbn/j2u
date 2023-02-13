@@ -5,6 +5,7 @@
       v-for="item in items"
       :key="item.name"
       v-bind="item.wrapperArgs"
+      :required="item.required"
     >
       <component
         :is="item.component"
@@ -12,6 +13,7 @@
         v-bind="item.args"
         :model-value="props.modelValue[item.name]"
         :path="item.path"
+        :required="item.required"
         @update:model-value="(v: any) => onInput(item.name, v)"
       />
     </component>
@@ -37,7 +39,7 @@ const emit = defineEmits<{(e: 'update:modelValue', value: IAnyObject): void }>()
 
 const items = computed(() => {
   return Object.entries(props.schema.properties)
-    .map(([name, schema]: [string, ISchema]) => getItemInfo(name, schema, props.uiSchema.properties?.[name] || {}, props.path, props.components, props.wrappers))
+    .map(([name, schema]: [string, ISchema]) => getItemInfo(name, schema, props.uiSchema.properties?.[name] || {}, props.path, props.components, props.wrappers, props.schema.required ?? []))
 })
 
 function onInput (key: string, val: any) {

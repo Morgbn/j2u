@@ -1,5 +1,6 @@
 <template>
   <div class="pure-control-group" :class="{ 'pure-control-group--disabled': props.disabled }">
+    <span v-if="props.required" class="pure-control-required-mark">*</span>
     <label v-if="props.title">{{ props.title }}</label>
     <slot />
     <span v-if="props.error" class="pure-form-message">{{ props.error }}</span>
@@ -11,6 +12,7 @@ const props = withDefaults(defineProps<{
   title?: string,
   error?: string,
   disabled?: boolean
+  required: boolean
 }>(), {
   title: '',
   error: '',
@@ -29,7 +31,7 @@ const props = withDefaults(defineProps<{
   opacity: 0.5;
   pointer-events: none;
 }
-.pure-form-message {
+.pure-form-message, .pure-control-required-mark {
   color: #f14668!important;
 }
 </style>

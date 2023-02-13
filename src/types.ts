@@ -27,6 +27,7 @@ export interface ISchemaBase {
 export interface ISchemaObject extends ISchemaBase {
   type: 'object'
   properties: { [key: string]: ISchema }
+  required?: string[]
 }
 
 export interface ISchemaSelect extends ISchemaBase {

@@ -1,6 +1,10 @@
 <template>
   <div class="custom-wrapper" :class="{ disabled: props.disabled }">
-    <label v-if="props.title">👉{{ props.title }}</label>
+    <label v-if="props.title">
+      <span class="hand-emoji">👉</span>
+      {{ props.title }}
+      <span v-if="props.required" style="color: red">*</span>
+    </label>
     <div class="content">
       <slot />
     </div>
@@ -13,6 +17,7 @@ const props = withDefaults(defineProps<{
   title?: string,
   error?: string,
   disabled?: boolean
+  required: boolean
 }>(), {
   title: '',
   error: '',
@@ -21,10 +26,10 @@ const props = withDefaults(defineProps<{
 </script>
 
 <style>
-.custom-wrapper > label {
+.custom-wrapper > label .hand-emoji {
   filter: grayscale(1);
 }
-.custom-wrapper:hover > label {
+.custom-wrapper:hover > label .hand-emoji {
   filter: grayscale(0);
 }
 .custom-wrapper .disabled {

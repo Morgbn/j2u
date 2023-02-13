@@ -35,7 +35,7 @@ const props = withDefaults(defineProps<{
 const emit = defineEmits<{(e: 'update:modelValue', value: IAnyObject): void }>()
 
 const components = computed(() => ({ ...defaultComponents, ...props.components, ...rootComponents }))
-const wrappers = computed(() => props.wrappers ?? defaultWrappers)
+const wrappers = computed(() => ({ ...defaultWrappers, ...props.wrappers }))
 
 function submit () {
   console.log('submit')

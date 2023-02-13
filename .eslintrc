@@ -21,6 +21,8 @@
     "jsdoc/require-param": "off",
     "jsdoc/require-returns": "off",
     "jsdoc/require-param-type": "off",
+    "func-call-spacing": "off",
+    "@typescript-eslint/func-call-spacing": "warn",
     "no-redeclare": "off",
     "@typescript-eslint/consistent-type-imports": [
       "error",

@@ -3,7 +3,7 @@
     <label v-if="props.title">
       <span class="hand-emoji">👉</span>
       {{ props.title }}
-      <span v-if="props.required" style="color: red">*</span>
+      <small><em v-if="!props.required">- Optional</em></small>
     </label>
     <div class="content">
       <slot />

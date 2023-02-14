@@ -59,6 +59,7 @@ const validator = computed(() => {
 
 const validateOnly: Ref<string[]> = ref([])
 function validate (): boolean {
+  internalErrors.value = []
   const valid = validator.value(props.modelValue)
   if (!valid) {
     const requiredMsg = props.i18n?.required ?? 'this field is required'

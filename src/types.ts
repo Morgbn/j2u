@@ -74,6 +74,10 @@ export interface IConfigComponent {
   [key: string]: IComponent
 }
 
+export interface ILocalize extends Function {
+  required?: string
+}
+
 // export interface IComponent {
 //   componentName: string
 //   eventName: string

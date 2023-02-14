@@ -10,6 +10,7 @@
         :defs-schema="defsSchema"
         :components="customComponents"
         :wrappers="customWrappers"
+        :i18n="fr"
       />
     </div>
     <div style="display: flex; gap: 15px">
@@ -24,6 +25,9 @@
 </template>
 
 <script setup>
+import fr from 'ajv-i18n/localize/fr'
+fr.required = 'champ requis'
+
 const form = ref(null)
 const data = ref({})
 const schema = {
@@ -37,7 +41,11 @@ const schema = {
     b: {
       type: 'number',
       title: 'Age',
-      maximum: 99
+      maximum: 99,
+      multipleOf: 5,
+      not: {
+        enum: [15, 20]
+      }
     },
     c: {
       type: 'boolean',

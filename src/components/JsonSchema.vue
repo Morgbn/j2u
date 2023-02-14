@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 import Ajv from 'ajv'
-import type { Ref, JSONSchema7, IUiSchema, IAnyObject, IConfigComponent, IErrorObject, ISchemaArray } from '@/types'
+import type { Ref, JSONSchema7, IUiSchema, IAnyObject, IConfigComponent, IErrorObject, ISchemaArray, ILocalize } from '@/types'
 
 const ajv = new Ajv({ allErrors: true })
 
@@ -27,6 +27,7 @@ const props = withDefaults(defineProps<{
   errors?: IErrorObject[]
   useDefaultStyles?: boolean
   defsSchema?: ISchemaArray
+  i18n?: ILocalize
 }>(), {
   uiSchema: () => ({}),
   modelValue: () => ({}),
@@ -52,11 +53,13 @@ const validator = computed(() => {
 const validate = () => {
   const valid = validator.value(props.modelValue)
   if (!valid) {
+    const requiredMsg = props.i18n?.required ?? 'this field is required'
+    if (props.i18n) { props.i18n(validator.value.errors) }
     internalErrors.value = (validator.value.errors ?? [])
     for (const err of internalErrors.value) {
       if (err.params?.missingProperty) {
         err.instancePath += `/${err.params.missingProperty}`
-        err.message = 'this field is required'
+        err.message = requiredMsg
       }
     }
     return false

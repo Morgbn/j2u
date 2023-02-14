@@ -1,3 +1,6 @@
+import type { ErrorObject } from 'ajv'
+
+export type { Ref } from 'vue'
 export type { JSONSchema7 } from 'json-schema'
 
 type SchemaTypeName = 'string' | 'number' | 'boolean' | 'object' | 'integer' | 'array'
@@ -51,6 +54,8 @@ export interface IUiSchema {
   uiType?: string
   items?: IUiSchema
 }
+
+export type IErrorObject = ErrorObject<string, Record<string, any>, unknown>
 
 // config types
 type PropsFunction = (propName: string, schema: any, uiSchema?: IUiSchema, wrapper?: IComponent) => IAnyObject

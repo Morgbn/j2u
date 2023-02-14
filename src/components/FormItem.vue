@@ -6,6 +6,7 @@
       :key="item.name"
       v-bind="item.wrapperArgs"
       :required="item.required"
+      :error="item.error"
     >
       <component
         :is="item.component"
@@ -21,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { ISchemaObject, IUiSchema, IAnyObject, IConfigComponent, ISchema } from '@/types'
+import type { ISchemaObject, IUiSchema, IAnyObject, IConfigComponent, ISchema, IErrorObject } from '@/types'
 
 const props = withDefaults(defineProps<{
   schema: ISchemaObject
@@ -30,16 +31,17 @@ const props = withDefaults(defineProps<{
   wrappers: IConfigComponent
   components: IConfigComponent
   path?: string
+  errors: IErrorObject[]
 }>(), {
   modelValue: () => ({}),
-  path: '$form'
+  path: ''
 })
 
 const emit = defineEmits<{(e: 'update:modelValue', value: IAnyObject): void }>()
 
 const items = computed(() => {
   return Object.entries(props.schema.properties)
-    .map(([name, schema]: [string, ISchema]) => getItemInfo(name, schema, props.uiSchema.properties?.[name] || {}, props.path, props.components, props.wrappers, props.schema.required ?? []))
+    .map(([name, schema]: [string, ISchema]) => getItemInfo(name, schema, props.uiSchema.properties?.[name] || {}, props.path, props.components, props.wrappers, props.errors, props.schema.required ?? []))
 })
 
 function onInput (key: string, val: any) {

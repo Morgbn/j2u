@@ -1,12 +1,29 @@
 <template>
-  <button @click="data = {}">
-    Reset
-  </button>
-  <pre>{{ data }}</pre>
-  <JsonSchema v-model="data" :schema="schema" :ui-schema="uiSchema" :components="customComponents" :wrappers="customWrappers" />
+  <div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px">
+      <pre>{{ data }}</pre>
+      <JsonSchema
+        ref="form"
+        v-model="data"
+        :schema="schema"
+        :ui-schema="uiSchema"
+        :components="customComponents"
+        :wrappers="customWrappers"
+      />
+    </div>
+    <div style="display: flex; gap: 15px">
+      <button @click="data = {}">
+        ♻️ RESET
+      </button>
+      <button @click="form.validate">
+        🟩 VALIDATE
+      </button>
+    </div>
+  </div>
 </template>
 
 <script setup>
+const form = ref(null)
 const data = ref({})
 const schema = {
   type: 'object',
@@ -14,7 +31,7 @@ const schema = {
     a: {
       type: 'string',
       title: 'Name',
-      minLength: 1
+      minLength: 2
     },
     b: {
       type: 'number',
@@ -45,8 +62,8 @@ const schema = {
           }
         },
         required: ['obj_b']
-        }
       }
+    }
   },
   required: ['b']
 }

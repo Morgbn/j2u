@@ -5,19 +5,20 @@
       <small><em v-if="!props.required">- Optional</em></small>
     </label>
     <slot />
-    <span v-if="props.error" class="pure-form-message">{{ props.error }}</span>
+    <span v-if="props.error" class="pure-form-message">{{ props.error.message }}</span>
   </div>
 </template>
 
 <script lang="ts" setup>
+import type { IErrorObject } from '@/types'
+
 const props = withDefaults(defineProps<{
   title?: string,
-  error?: string,
+  error?: IErrorObject,
   disabled?: boolean
   required: boolean
 }>(), {
   title: '',
-  error: '',
   disabled: false
 })
 </script>

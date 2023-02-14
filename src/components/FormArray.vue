@@ -10,14 +10,19 @@
     @swap="swap"
     @remove="remove"
   >
-    <template #default="{ item: el, index }">
-      <component :is="item.wrapper" v-bind="item.wrapperArgs" :required="item.required">
+    <template #default="{ item, index }">
+      <component
+        :is="items[index].wrapper"
+        v-bind="items[index].wrapperArgs"
+        :required="items[index].required"
+        :error="items[index].error"
+      >
         <component
-          :is="item.component"
-          :model-value="el"
-          v-bind="item.args"
-          :path="`${path}[${index}]`"
-          :required="item.required"
+          :is="items[index].component"
+          :model-value="item"
+          v-bind="items[index].args"
+          :path="items[index].path"
+          :required="items[index].required"
           @update:model-value="(v: any) => onInput(index, v)"
         />
       </component>
@@ -26,7 +31,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { ISchemaArray, IUiSchema, IConfigComponent } from '@/types'
+import type { ISchemaArray, IUiSchema, IConfigComponent, IErrorObject } from '@/types'
 
 const props = withDefaults(defineProps<{
   name: string,
@@ -36,13 +41,14 @@ const props = withDefaults(defineProps<{
   wrappers: IConfigComponent
   components: IConfigComponent
   path: string
+  errors: IErrorObject[]
 }>(), {
   modelValue: () => ([])
 })
 const emit = defineEmits<{(e: 'update:modelValue', value: Array<any>): void }>()
 
-const item = computed(() =>
-  getItemInfo(props.name, props.schema.items, props.uiSchema?.items || {}, props.path, props.components, props.wrappers))
+const items = computed(() => props.modelValue.map((_, i) =>
+  getItemInfo(`${i}`, props.schema.items, props.uiSchema?.items || {}, props.path, props.components, props.wrappers, props.errors)))
 
 function updateValue (action: (arg: Array<any>) => void) {
   const newVal = [...props.modelValue]

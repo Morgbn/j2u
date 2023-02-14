@@ -8,19 +8,18 @@
     <div class="content">
       <slot />
     </div>
-    <span v-if="props.error" class="error">⚠️{{ props.error }}</span>
+    <span v-if="props.error" class="error">⚠️{{ props.error.message }}</span>
   </div>
 </template>
 
 <script lang="ts" setup>
 const props = withDefaults(defineProps<{
   title?: string,
-  error?: string,
+  error?: Record<string, any>,
   disabled?: boolean
   required: boolean
 }>(), {
   title: '',
-  error: '',
   disabled: false
 })
 </script>

@@ -7,6 +7,7 @@
         v-model="data"
         :schema="schema"
         :ui-schema="uiSchema"
+        :defs-schema="defsSchema"
         :components="customComponents"
         :wrappers="customWrappers"
       />
@@ -56,9 +57,8 @@ const schema = {
         properties: {
           obj_a: { type: 'string' },
           obj_b: {
-            type: 'string',
             title: 'User Food',
-            enum: ['🫓', '🍕', '🍔', '🥗']
+            $ref: 'defs#/definitions/food'
           }
         },
         required: ['obj_b']
@@ -77,6 +77,15 @@ const uiSchema = {
           }
         }
       }
+    }
+  }
+}
+const defsSchema = {
+  $id: 'defs',
+  definitions: {
+    food: {
+      type: 'string',
+      enum: ['🫓', '🍕', '🍔', '🥗']
     }
   }
 }

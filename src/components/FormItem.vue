@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Ref, ISchemaObject, IUiSchema, IAnyObject, IConfigComponent, ISchema, IErrorObject } from '@/types'
+import type { Ref, ISchemaObject, IUiSchema, IAnyObject, IConfigComponent, ISchemaArray, ISchema, IErrorObject } from '@/types'
 
 const props = withDefaults(defineProps<{
   schema: ISchemaObject
@@ -36,13 +36,14 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits<{(e: 'update:modelValue', value: IAnyObject): void }>()
 
+const defsSchema = inject('defsSchema') as Ref<ISchemaArray>
 const components = inject('components') as Ref<IConfigComponent>
 const wrappers = inject('wrappers') as Ref<IConfigComponent>
 const errors = inject('errors') as Ref<IErrorObject[]>
 
 const items = computed(() => {
   return Object.entries(props.schema.properties)
-    .map(([name, schema]: [string, ISchema]) => getItemInfo(name, schema, props.uiSchema.properties?.[name] || {}, props.path, components.value, wrappers.value, errors.value, props.schema.required ?? []))
+    .map(([name, schema]: [string, ISchema]) => getItemInfo(name, schema, props.uiSchema.properties?.[name] || {}, props.path, components.value, wrappers.value, defsSchema.value, errors.value, props.schema.required ?? []))
 })
 
 function onInput (key: string, val: any) {

@@ -37,6 +37,11 @@ export interface ISchemaSelect extends ISchemaBase {
   enum: Array<any>
 }
 
+export interface ISchemaDef extends ISchemaBase {
+  $id: 'string'
+  definitions: { [key: string]: ISchemaBase }
+}
+
 export interface ISchemaArray extends ISchemaBase {
   type: 'array'
   items: ISchema

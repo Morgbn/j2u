@@ -44,12 +44,13 @@ const props = withDefaults(defineProps<{
 })
 const emit = defineEmits<{(e: 'update:modelValue', value: Array<any>): void }>()
 
+const defsSchema = inject('defsSchema') as Ref<ISchemaArray>
 const components = inject('components') as Ref<IConfigComponent>
 const wrappers = inject('wrappers') as Ref<IConfigComponent>
 const errors = inject('errors') as Ref<IErrorObject[]>
 
 const items = computed(() => props.modelValue.map((_, i) =>
-  getItemInfo(`${i}`, props.schema.items, props.uiSchema?.items || {}, props.path, components.value, wrappers.value, errors.value)))
+  getItemInfo(`${i}`, props.schema.items, props.uiSchema?.items || {}, props.path, components.value, wrappers.value, defsSchema.value, errors.value)))
 
 function updateValue (action: (arg: Array<any>) => void) {
   const newVal = [...props.modelValue]

@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 import Ajv from 'ajv'
-import type { Ref, JSONSchema7, IUiSchema, IAnyObject, IConfigComponent, IErrorObject } from '@/types'
+import type { Ref, JSONSchema7, IUiSchema, IAnyObject, IConfigComponent, IErrorObject, ISchemaArray } from '@/types'
 
 const ajv = new Ajv({ allErrors: true })
 
@@ -26,6 +26,7 @@ const props = withDefaults(defineProps<{
   wrappers?: IConfigComponent
   errors?: IErrorObject[]
   useDefaultStyles?: boolean
+  defsSchema?: ISchemaArray
 }>(), {
   uiSchema: () => ({}),
   modelValue: () => ({}),
@@ -35,13 +36,19 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits<{(e: 'update:modelValue', value: IAnyObject): void }>()
 
+provide('defsSchema', computed(() => props.defsSchema))
 provide('components', computed(() => ({ ...defaultComponents, ...props.components, ...rootComponents })))
 provide('wrappers', computed(() => ({ ...defaultWrappers, ...props.wrappers })))
 
 const internalErrors: Ref<IErrorObject[]> = ref([])
 provide('errors', computed(() => [...internalErrors.value, ...(props.errors ?? [])]))
 
-const validator = computed(() => ajv.compile(props.schema))
+const validator = computed(() => {
+  if (props.defsSchema) {
+    return ajv.addSchema(props.defsSchema).compile(props.schema)
+  }
+  return ajv.compile(props.schema)
+})
 const validate = () => {
   const valid = validator.value(props.modelValue)
   if (!valid) {

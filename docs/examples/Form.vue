@@ -63,7 +63,10 @@ const schema = {
         type: 'object',
         title: 'Object',
         properties: {
-          obj_a: { type: 'string' },
+          obj_a: {
+            type: 'string',
+            default: 'default value'
+          },
           obj_b: {
             title: 'User Food',
             $ref: 'defs#/definitions/food'

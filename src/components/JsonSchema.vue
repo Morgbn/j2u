@@ -17,7 +17,7 @@
 import Ajv from 'ajv'
 import type { Ref, JSONSchema7, IUiSchema, IAnyObject, IConfigComponent, IErrorObject, ISchemaArray, ILocalize } from '@/types'
 
-const ajv = new Ajv({ allErrors: true })
+const ajv = new Ajv({ allErrors: true, useDefaults: true })
 
 const props = withDefaults(defineProps<{
   schema: JSONSchema7,
@@ -98,6 +98,15 @@ const onUpdate = debounce((v: IAnyObject, path: string) => {
 const onBlur = debounce((ev: Event, path: string) => {
   if (props.validateTrigger === 'blur') {
     validateWith(path)
+  }
+})
+
+watch(() => props.modelValue, () => { // set default values
+  const stringified = JSON.stringify(props.modelValue)
+  const form = JSON.parse(stringified)
+  validator.value(form)
+  if (JSON.stringify(form) !== stringified) {
+    emit('update:modelValue', form)
   }
 })
 

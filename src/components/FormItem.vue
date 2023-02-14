@@ -31,8 +31,13 @@ const props = withDefaults(defineProps<{
   modelValue: IAnyObject
   path?: string
 }>(), {
-  modelValue: () => ({}),
   path: ''
+})
+
+onMounted(() => {
+  if (props.modelValue === undefined) {
+    emit('update:modelValue', {}, props.path)
+  }
 })
 
 const emit = defineEmits<{

@@ -5,9 +5,6 @@
         :schema="props.schema"
         :ui-schema="uiSchema"
         :model-value="modelValue"
-        :components="components"
-        :wrappers="wrappers"
-        :errors="errors"
         @update:model-value="(v: IAnyObject) => emit('update:modelValue', v)"
       />
       <button type="submit" style="position: absolute; left: -100px; visibility: hidden" @click.prevent="submit()" />
@@ -38,16 +35,18 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits<{(e: 'update:modelValue', value: IAnyObject): void }>()
 
-const components = computed(() => ({ ...defaultComponents, ...props.components, ...rootComponents }))
-const wrappers = computed(() => ({ ...defaultWrappers, ...props.wrappers }))
+provide('components', computed(() => ({ ...defaultComponents, ...props.components, ...rootComponents })))
+provide('wrappers', computed(() => ({ ...defaultWrappers, ...props.wrappers })))
 
-const errors: Ref<IErrorObject[]> = ref([])
+const internalErrors: Ref<IErrorObject[]> = ref([])
+provide('errors', computed(() => [...internalErrors.value, ...(props.errors ?? [])]))
+
 const validator = computed(() => ajv.compile(props.schema))
 const validate = () => {
   const valid = validator.value(props.modelValue)
   if (!valid) {
-    errors.value = (validator.value.errors ?? [])
-    for (const err of errors.value) {
+    internalErrors.value = (validator.value.errors ?? [])
+    for (const err of internalErrors.value) {
       if (err.params?.missingProperty) {
         err.instancePath += `/${err.params.missingProperty}`
         err.message = 'this field is required'

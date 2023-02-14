@@ -1,6 +1,6 @@
 <template>
   <component
-    :is="props.wrappers.array.component"
+    :is="wrappers.array.component"
     :model-value="props.modelValue"
     :name="name"
     :schema="schema"
@@ -31,24 +31,25 @@
 </template>
 
 <script lang="ts" setup>
-import type { ISchemaArray, IUiSchema, IConfigComponent, IErrorObject } from '@/types'
+import type { Ref, ISchemaArray, IUiSchema, IConfigComponent, IErrorObject } from '@/types'
 
 const props = withDefaults(defineProps<{
   name: string,
   schema: ISchemaArray,
   uiSchema: IUiSchema,
   modelValue: Array<any>
-  wrappers: IConfigComponent
-  components: IConfigComponent
   path: string
-  errors: IErrorObject[]
 }>(), {
   modelValue: () => ([])
 })
 const emit = defineEmits<{(e: 'update:modelValue', value: Array<any>): void }>()
 
+const components = inject('components') as Ref<IConfigComponent>
+const wrappers = inject('wrappers') as Ref<IConfigComponent>
+const errors = inject('errors') as Ref<IErrorObject[]>
+
 const items = computed(() => props.modelValue.map((_, i) =>
-  getItemInfo(`${i}`, props.schema.items, props.uiSchema?.items || {}, props.path, props.components, props.wrappers, props.errors)))
+  getItemInfo(`${i}`, props.schema.items, props.uiSchema?.items || {}, props.path, components.value, wrappers.value, errors.value)))
 
 function updateValue (action: (arg: Array<any>) => void) {
   const newVal = [...props.modelValue]

@@ -1,7 +1,7 @@
 <template>
   <component
     :is="wrappers.array.component"
-    :model-value="props.modelValue"
+    :array="props.modelValue"
     :name="name"
     :schema="schema"
     :ui-schema="uiSchema"

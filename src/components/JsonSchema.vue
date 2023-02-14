@@ -43,6 +43,7 @@ const emit = defineEmits<{
   (e: 'submit', event: Event): void
 }>()
 
+provide('form', computed(() => props.modelValue))
 provide('defsSchema', computed(() => props.defsSchema))
 provide('components', computed(() => ({ ...defaultComponents, ...props.components, ...rootComponents })))
 provide('wrappers', computed(() => ({ ...defaultWrappers, ...props.wrappers })))

@@ -58,6 +58,7 @@ export interface IUiSchema {
   disabled?: boolean,
   uiType?: string
   items?: IUiSchema
+  cond?: (form: IAnyObject, path: string) => boolean
 }
 
 export type IErrorObject = ErrorObject<string, Record<string, any>, unknown>

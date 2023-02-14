@@ -14,6 +14,7 @@
       <component
         :is="items[index].wrapper"
         v-bind="items[index].wrapperArgs"
+        v-show="!items[index].cond || items[index].cond(form, items[index].path)"
         :required="items[index].required"
         :error="items[index].error"
       >
@@ -32,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Ref, ISchemaArray, IUiSchema, IConfigComponent, IErrorObject } from '@/types'
+import type { Ref, ISchemaArray, IUiSchema, IAnyObject, IConfigComponent, IErrorObject } from '@/types'
 
 const props = withDefaults(defineProps<{
   name: string,
@@ -48,6 +49,7 @@ const emit = defineEmits<{
   (e: 'blur', ev: Event, path: string): void
 }>()
 
+const form = inject('form') as Ref<IAnyObject>
 const defsSchema = inject('defsSchema') as Ref<ISchemaArray>
 const components = inject('components') as Ref<IConfigComponent>
 const wrappers = inject('wrappers') as Ref<IConfigComponent>

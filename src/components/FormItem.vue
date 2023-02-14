@@ -3,6 +3,7 @@
     <component
       :is="item.wrapper"
       v-for="item in items"
+      v-show="!item.cond || item.cond(form, item.path)"
       :key="item.name"
       v-bind="item.wrapperArgs"
       :required="item.required"
@@ -45,6 +46,7 @@ const emit = defineEmits<{
   (e: 'blur', ev: Event, path: string): void
 }>()
 
+const form = inject('form') as Ref<IAnyObject>
 const defsSchema = inject('defsSchema') as Ref<ISchemaArray>
 const components = inject('components') as Ref<IConfigComponent>
 const wrappers = inject('wrappers') as Ref<IConfigComponent>

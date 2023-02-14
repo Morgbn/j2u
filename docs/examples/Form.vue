@@ -39,13 +39,10 @@ const schema = {
       minLength: 2
     },
     b: {
-      type: 'number',
+      type: 'integer',
       title: 'Age',
-      maximum: 99,
-      multipleOf: 5,
-      not: {
-        enum: [15, 20]
-      }
+      minimum: 13,
+      maximum: 113
     },
     c: {
       type: 'boolean',
@@ -80,9 +77,15 @@ const schema = {
 }
 const uiSchema = {
   properties: {
+    c: {
+      cond: (form, _path) => form?.b >= 18
+    },
     arr: {
       items: {
         properties: {
+          obj_a: {
+            cond: form => !!form.c
+          },
           obj_b: {
             uiType: 'radio'
           }

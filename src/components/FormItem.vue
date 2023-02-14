@@ -15,7 +15,8 @@
         :model-value="props.modelValue[item.name]"
         :path="item.path"
         :required="item.required"
-        @update:model-value="(v: any) => onInput(item.name, v)"
+        @update:model-value="(v: any, p: string) => onInput(item, v, p)"
+        @blur="(ev: Event, path?: string) => emit('blur', ev, path ?? item.path)"
       />
     </component>
   </div>
@@ -34,7 +35,10 @@ const props = withDefaults(defineProps<{
   path: ''
 })
 
-const emit = defineEmits<{(e: 'update:modelValue', value: IAnyObject): void }>()
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: IAnyObject, path: string): void
+  (e: 'blur', ev: Event, path: string): void
+}>()
 
 const defsSchema = inject('defsSchema') as Ref<ISchemaArray>
 const components = inject('components') as Ref<IConfigComponent>
@@ -46,9 +50,9 @@ const items = computed(() => {
     .map(([name, schema]: [string, ISchema]) => getItemInfo(name, schema, props.uiSchema.properties?.[name] || {}, props.path, components.value, wrappers.value, defsSchema.value, errors.value, props.schema.required ?? []))
 })
 
-function onInput (key: string, val: any) {
+function onInput ({ name, path }: { name: string, path: string }, val: any, fromPath?: string) {
   const newVal = { ...props.modelValue } as IAnyObject
-  newVal[key] = val
-  emit('update:modelValue', newVal)
+  newVal[name] = val
+  emit('update:modelValue', newVal, fromPath ?? path)
 }
 </script>

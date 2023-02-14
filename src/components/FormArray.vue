@@ -23,7 +23,8 @@
           v-bind="items[index].args"
           :path="items[index].path"
           :required="items[index].required"
-          @update:model-value="(v: any) => onInput(index, v)"
+          @update:model-value="(v: any, p?: string) => onInput(index, v, p)"
+          @blur="(ev: Event, path?: string) => emit('blur', ev, path ?? items[index].path)"
         />
       </component>
     </template>
@@ -42,7 +43,10 @@ const props = withDefaults(defineProps<{
 }>(), {
   modelValue: () => ([])
 })
-const emit = defineEmits<{(e: 'update:modelValue', value: Array<any>): void }>()
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: Array<any>, path: string): void
+  (e: 'blur', ev: Event, path: string): void
+}>()
 
 const defsSchema = inject('defsSchema') as Ref<ISchemaArray>
 const components = inject('components') as Ref<IConfigComponent>
@@ -52,14 +56,14 @@ const errors = inject('errors') as Ref<IErrorObject[]>
 const items = computed(() => props.modelValue.map((_, i) =>
   getItemInfo(`${i}`, props.schema.items, props.uiSchema?.items || {}, props.path, components.value, wrappers.value, defsSchema.value, errors.value)))
 
-function updateValue (action: (arg: Array<any>) => void) {
+function updateValue (action: (arg: Array<any>) => void, path?: string) {
   const newVal = [...props.modelValue]
   action(newVal)
-  emit('update:modelValue', newVal)
+  emit('update:modelValue', newVal, path ?? props.path)
 }
 
-const onInput = (i: number, val: any) =>
-  updateValue(newVal => newVal.splice(i, 1, val))
+const onInput = (i: number, val: any, path?: string) =>
+  updateValue(newVal => newVal.splice(i, 1, val), path)
 
 const addNewItem = () => updateValue(newVal => newVal.push(undefined))
 

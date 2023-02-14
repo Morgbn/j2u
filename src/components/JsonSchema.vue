@@ -105,6 +105,11 @@ defineExpose({
   validate: () => {
     validateOnly.value = []
     return validate()
+  },
+  reset: () => {
+    validateOnly.value = []
+    internalErrors.value = []
+    emit('update:modelValue', {})
   }
 })
 </script>

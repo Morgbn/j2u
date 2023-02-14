@@ -14,7 +14,7 @@
       />
     </div>
     <div style="display: flex; gap: 15px">
-      <button @click="data = {}">
+      <button @click="form.reset">
         ♻️ RESET
       </button>
       <button @click="form.validate">

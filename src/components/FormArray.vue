@@ -14,7 +14,7 @@
       <component
         :is="items[index].wrapper"
         v-bind="items[index].wrapperArgs"
-        v-show="!items[index].cond || items[index].cond(form, items[index].path)"
+        v-show="cond(items[index])"
         :required="items[index].required"
         :error="items[index].error"
       >
@@ -63,6 +63,8 @@ function updateValue (action: (arg: Array<any>) => void, path?: string) {
   action(newVal)
   emit('update:modelValue', newVal, path ?? props.path)
 }
+
+const cond = (item: any) => !item.cond || item.cond(form, item.path)
 
 const onInput = (i: number, val: any, path?: string) =>
   updateValue(newVal => newVal.splice(i, 1, val), path)

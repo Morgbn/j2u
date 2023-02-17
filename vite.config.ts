@@ -50,7 +50,7 @@ export default defineConfig({
       entry: 'src/components/main.ts',
       name: 'JSONSchemaForm',
       formats: ['es', 'cjs', 'umd'],
-      fileName: format => `vue3-jsonschema-form.${format}.js`
+      fileName: format => `ajfg.${format}.js`
     },
     rollupOptions: {
       external: ['vue'],
@@ -59,7 +59,7 @@ export default defineConfig({
       },
       output: {
         assetFileNames: (assetInfo) => {
-          return assetInfo.name === 'main.css' ? 'vue3-jsonschema-form.css' : assetInfo.name
+          return assetInfo.name === 'main.css' ? 'ajfg.css' : assetInfo.name
         },
         exports: 'named',
         globals: {

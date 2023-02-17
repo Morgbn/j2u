@@ -1,5 +1,5 @@
 {
-  "name": "vue3-jsonschema-form",
+  "name": "ajfg",
   "description": "Form generator based on JSON Schema",
   "license": "MIT",
   "keywords": [
@@ -16,16 +16,16 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/vue3-jsonschema-form-ts.umd.js",
-  "module": "./dist/vue3-jsonschema-form-ts.es.js",
+  "main": "./dist/ajfg-ts.umd.js",
+  "module": "./dist/ajfg-ts.es.js",
   "exports": {
     ".": {
-      "import": "./dist/vue3-jsonschema-form.es.js",
-      "require": "./dist/vue3-jsonschema-form.umd.js"
+      "import": "./dist/ajfg.es.js",
+      "require": "./dist/ajfg.umd.js"
     },
-    "./dist/vue3-jsonschema-form.css": {
-      "import": "./dist/vue3-jsonschema-form.css",
-      "require": "./dist/vue3-jsonschema-form.css"
+    "./dist/ajfg.css": {
+      "import": "./dist/ajfg.css",
+      "require": "./dist/ajfg.css"
     }
   },
   "types": "./dist/main.d.ts",

@@ -31,7 +31,7 @@ const props = withDefaults(defineProps<{
 .custom-wrapper:hover > label .hand-emoji {
   filter: grayscale(0);
 }
-.custom-wrapper .disabled {
+.custom-wrapper.disabled {
   opacity: 0.5;
   pointer-events: none;
   cursor: not-allowed;

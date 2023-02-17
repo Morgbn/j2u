@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px">
-      <pre>{{ data }}</pre>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px">
+    <pre>data = {{ data }}</pre>
+    <div>
       <JsonSchema
         ref="form"
         v-model="data"
@@ -12,14 +12,14 @@
         :wrappers="customWrappers"
         :i18n="fr"
       />
-    </div>
-    <div style="display: flex; gap: 15px">
-      <button @click="form.reset">
-        ♻️ RESET
-      </button>
-      <button @click="form.validate">
-        🟩 VALIDATE
-      </button>
+      <div style="display: flex; gap: 15px; margin-top: 20px;">
+        <button @click="form.reset">
+          ♻️ RESET
+        </button>
+        <button @click="form.validate">
+          🟩 VALIDATE
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -117,10 +117,7 @@ const customWrappers = {
     })
   },
   array: {
-    component: defineAsyncComponent(() => import('./CustomArray.vue')),
-    props: (propName, schema, uiSchema, wrapper) => {
-      return { schema, uiSchema, wrapper }
-    }
+    component: defineAsyncComponent(() => import('./CustomArray.vue'))
   }
 }
 </script>

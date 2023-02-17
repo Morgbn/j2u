@@ -1,13 +1,13 @@
-# vue3-jsonschema-form
-JSON Schema based form generator built with Vue.js.
+# AJFG
+JSON Schema based form generator built with vue 3
 
 ### Installation
-```
-npm install vue3-jsonschema-form
+```sh
+yarn add ajfg # npm i ajfg
 ```
 
-### Usage
-```vue
+### Basic Usage
+```html
 <JsonSchema :schema="schema" v-model="value"/>
 ```
 ```js
@@ -35,3 +35,6 @@ schema = {
     }
 }
 ```
+
+### Credits
+- inspired by [vue-jsonschema-form](https://github.com/roma219/vue-jsonschema-form) and [ncform](https://github.com/ncform/ncform)

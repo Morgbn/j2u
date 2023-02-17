@@ -4,28 +4,41 @@ import { readdirSync } from 'node:fs'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
-const guides = readdirSync(resolve(__dirname, '../guide'))
 
-const items = []
-for (const guide of guides) {
-  if (!guide.endsWith('.md')) { continue }
-  const text = guide.slice(0, -3)
-  items.push({ text, link: `/guide/${text}` })
-}
+const getItems = folder => readdirSync(resolve(__dirname, `../${folder}`))
+  .filter(file => file.endsWith('.md'))
+  .map((path) => ({ text: path.replace(/-|.md/g, ' '), link: `/${folder}/${path.slice(0, -3)}` }))
 
 export default {
-  title: 'Vue3-JSONSchema-Form',
-  description: 'Form generator based on JSON Schema',
+  title: 'AJFG',
+  description: 'AJFG, Another JSON schema Form Generator',
   themeConfig: {
+
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/Morgbn/ajfg' },
+      { icon: 'twitter', link: 'https://twitter.com/MorgbnDev' },
+    ],
+
     sidebar: [
       {
         text: 'Introduction',
-        link: '/'
+        items: [
+          { text: 'Getting Started', link: '/intro/' }
+        ]
       },
       {
-        text: 'Components',
-        items
+        text: 'Examples',
+        items: getItems('examples')
       },
-    ]
-  }
+    ],
+
+    editLink: {
+      pattern: 'https://github.com/morgbn/ajfg/edit/main/docs/:path'
+    },
+    
+    footer: {
+      message: 'Released under the <a href="https://github.com/morgbn/ajfg/blob/main/LICENSE">MIT License</a>.',
+      copyright: 'Copyright © 2023-present <a href="https://github.com/morgbn">Morgbn</a>'
+    }
+  },
 }

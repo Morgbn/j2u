@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label v-for="(option, index) in props.options" :key="index" :for="path + option" class="pure-radio">
+    <label v-for="(option, index) in props.options" :key="index" :for="path + option" style="margin-left: 1px">
       <input
         :id="path + option"
         type="radio"
@@ -30,9 +30,3 @@ function handleInput (event: Event) {
   emit('update:modelValue', (event.target as HTMLInputElement).value)
 }
 </script>
-
-<style>
-.pure-radio {
-  margin-left: 1px!important;
-}
-</style>

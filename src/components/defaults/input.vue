@@ -31,9 +31,3 @@ function handleInput (event: Event) {
   emit('update:modelValue', val)
 }
 </script>
-
-<style>
-.pure-radio {
-  margin-left: 1px!important;
-}
-</style>

@@ -1,5 +1,5 @@
 <template>
-  <select :value="props.modelValue" class="json-schema-form-select" @input="handleInput">
+  <select :value="props.modelValue" style="appearance: button" @input="handleInput">
     <option disabled value="">
       Please select one
     </option>
@@ -29,9 +29,3 @@ function handleInput (event: Event) {
   emit('update:modelValue', (event.target as HTMLInputElement).value)
 }
 </script>
-
-<style>
-.json-schema-form-select {
-  appearance: button;
-}
-</style>

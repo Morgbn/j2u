@@ -1,11 +1,14 @@
 import type { ISchema, IUiSchema, IConfigComponent, ISchemaArray, IAnyObject, IErrorObject } from '@/types'
 
-function getType (schema?: ISchema) {
-  return !schema ? 'object' : schema.enum ? 'select' : schema.type
+function getType (schema?: ISchema): string {
+  if (typeof schema !== 'object') { return 'object' }
+  if (schema.enum) { return 'select' }
+  if (Array.isArray(schema.type)) { return schema.type[0] }
+  return schema.type ?? 'object'
 }
 
 function getSchema (schema: ISchema, defs: ISchemaArray): ISchema {
-  if (!schema.$ref) { return schema }
+  if (typeof schema === 'boolean' || !schema.$ref) { return schema }
   const { $ref, ...full } = schema
   const attrs = $ref.split('#')[1].split('/').slice(1)
   let el: IAnyObject = defs
@@ -35,6 +38,6 @@ export function getItemInfo (
   const cond = uiSchema.cond ?? null
   const { component, props: f } = components[uiType] ?? components.string
   const args = f?.(name, schema, uiSchema) ?? {}
-  if (schema.type === 'array') { args.name = name }
+  if (typeof schema !== 'boolean' && schema.type === 'array') { args.name = name }
   return { name, component, args, wrapper, wrapperArgs, path, required, error, cond }
 }

@@ -53,7 +53,7 @@ const wrappers = inject('wrappers') as Ref<IConfigComponent>
 const errors = inject('errors') as Ref<IErrorObject[]>
 
 const items = computed(() => {
-  return Object.entries(props.schema.properties)
+  return Object.entries(props.schema?.properties || {})
     .map(([name, schema]: [string, ISchema]) => getItemInfo(name, schema, props.uiSchema.properties?.[name] || {}, props.path, components.value, wrappers.value, defsSchema.value, errors.value, props.schema.required ?? []))
 })
 

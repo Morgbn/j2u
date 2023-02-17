@@ -15,12 +15,12 @@
 
 <script lang="ts" setup>
 import Ajv from 'ajv'
-import type { Ref, JSONSchema7, IUiSchema, IAnyObject, IConfigComponent, IErrorObject, ISchemaArray, ILocalize } from '@/types'
+import type { Ref, ISchemaObject, IUiSchema, IAnyObject, IConfigComponent, IErrorObject, ISchemaArray, ILocalize } from '@/types'
 
 const ajv = new Ajv({ allErrors: true, useDefaults: true })
 
 const props = withDefaults(defineProps<{
-  schema: JSONSchema7,
+  schema: ISchemaObject,
   uiSchema?: IUiSchema
   modelValue?: IAnyObject
   components?: IConfigComponent

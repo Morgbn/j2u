@@ -48,8 +48,6 @@
     "json-schema": "^0.4.0",
     "rollup-plugin-typescript2": "^0.34.1",
     "typescript": "^4.9.3",
-    "unplugin-auto-import": "^0.14.3",
-    "unplugin-vue-components": "^0.24.0",
     "vite": "^4.1.0",
     "vite-plugin-dts": "^2.0.0-beta.1",
     "vitepress": "^1.0.0-alpha.46",

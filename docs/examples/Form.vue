@@ -25,7 +25,9 @@
 </template>
 
 <script setup>
+import { ref, defineAsyncComponent } from 'vue'
 import fr from 'ajv-i18n/localize/fr'
+import JsonSchema from '@/components/JsonSchema.vue'
 fr.required = 'champ requis'
 
 const form = ref(null)

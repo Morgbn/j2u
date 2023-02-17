@@ -15,6 +15,11 @@
 
 <script lang="ts" setup>
 import Ajv from 'ajv'
+import { computed, nextTick, provide, ref, watch } from 'vue'
+import { defaultComponents, defaultWrappers, rootComponents } from '@/utils/defaultComponents'
+import { debounce } from '@/utils/debounce'
+import FormItem from '@/components/FormItem.vue'
+
 import type { Ref, ISchemaObject, IUiSchema, IAnyObject, IConfigComponent, IErrorObject, ISchemaArray, ILocalize } from '@/types'
 
 const ajv = new Ajv({ allErrors: true, useDefaults: true })

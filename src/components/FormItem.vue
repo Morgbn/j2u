@@ -24,6 +24,9 @@
 </template>
 
 <script lang="ts" setup>
+import { onMounted, inject, computed } from 'vue'
+import { getItemInfo } from '@/utils/item'
+
 import type { Ref, ISchemaObject, IUiSchema, IAnyObject, IConfigComponent, ISchemaArray, ISchema, IErrorObject } from '@/types'
 
 const props = withDefaults(defineProps<{

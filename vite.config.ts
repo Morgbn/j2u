@@ -1,8 +1,6 @@
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import typescript2 from 'rollup-plugin-typescript2'
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
 import dts from 'vite-plugin-dts'
 
 import { defineConfig } from 'vite'
@@ -30,18 +28,6 @@ export default defineConfig({
         }
       },
       exclude: ['vite.config.ts']
-    }),
-    AutoImport({
-      imports: ['vue'],
-      dirs: ['./src/utils/**'],
-      include: [/\.vue$/],
-      eslintrc: {
-        enabled: true
-      }
-    }),
-    Components({
-      dirs: ['src/components'],
-      include: [/\.vue$/]
     })
   ],
   build: {

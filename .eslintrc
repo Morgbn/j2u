@@ -5,8 +5,7 @@
   "extends": [
     "plugin:jsdoc/recommended",
     "@nuxtjs/eslint-config-typescript",
-    "plugin:import/typescript",
-    "./.eslintrc-auto-import.json"
+    "plugin:import/typescript"
   ],
   "rules": {
     "unicorn/prefer-node-protocol": "error",

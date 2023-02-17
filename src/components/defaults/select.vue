@@ -10,6 +10,8 @@
 </template>
 
 <script lang="ts" setup>
+import { watchEffect } from 'vue'
+
 const props = withDefaults(defineProps<{
   modelValue?: string,
   options?: Array<any>

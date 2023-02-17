@@ -33,6 +33,9 @@
 </template>
 
 <script lang="ts" setup>
+import { inject, computed } from 'vue'
+import { getItemInfo } from '@/utils/item'
+
 import type { Ref, ISchemaArray, IUiSchema, IAnyObject, IConfigComponent, IErrorObject } from '@/types'
 
 const props = withDefaults(defineProps<{

@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/morgbn/ajfg/compare/v1.0.0...v1.0.1) (2023-02-21)
+
+
+### Bug Fixes
+
+* :bug: build error ([913b636](https://github.com/morgbn/ajfg/commit/913b636c2a4bd362c61fedc78273fd81f62a2231))
+
 # 1.0.0 (2023-02-17)
 
 

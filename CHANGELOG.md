@@ -1,3 +1,11 @@
+# [1.1.0](https://github.com/morgbn/ajfg/compare/v1.0.1...v1.1.0) (2023-02-21)
+
+
+### Features
+
+* :sparkles: add more formats ([8f0430f](https://github.com/morgbn/ajfg/commit/8f0430f7478283e3f6e9946c33683ddd38f98649))
+* :sparkles: custom validation with user defined keywords ([21da729](https://github.com/morgbn/ajfg/commit/21da7299a191a4863757e641823797e4a3d4169d))
+
 ## [1.0.1](https://github.com/morgbn/ajfg/compare/v1.0.0...v1.0.1) (2023-02-21)
 
 

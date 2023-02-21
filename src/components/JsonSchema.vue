@@ -21,9 +21,9 @@ import { defaultComponents, defaultWrappers, rootComponents } from '@/utils/defa
 import { debounce } from '@/utils/debounce'
 import FormItem from '@/components/FormItem.vue'
 
-import type { Ref, ISchemaObject, IUiSchema, IAnyObject, IConfigComponent, IErrorObject, ISchemaArray, ILocalize } from '@/types'
+import type { Ref, ISchemaObject, IUiSchema, IAnyObject, IConfigComponent, IErrorObject, ISchemaArray, KeywordDefinition, ILocalize } from '@/types'
 
-const ajv = new Ajv({ allErrors: true, useDefaults: true })
+const ajv = new Ajv({ allErrors: true, useDefaults: true, strict: 'log' })
 addFormats(ajv)
 
 const props = withDefaults(defineProps<{
@@ -36,11 +36,13 @@ const props = withDefaults(defineProps<{
   validateTrigger?: 'blur'|'change'
   useDefaultStyles?: boolean
   defsSchema?: ISchemaArray
+  keywords?: KeywordDefinition[]
   i18n?: ILocalize
 }>(), {
   uiSchema: () => ({}),
   modelValue: () => ({}),
   components: () => ({}),
+  keywords: () => [],
   useDefaultStyles: true,
   validateTrigger: 'blur'
 })
@@ -57,6 +59,12 @@ provide('wrappers', computed(() => ({ ...defaultWrappers, ...props.wrappers })))
 
 const internalErrors: Ref<IErrorObject[]> = ref([])
 provide('errors', computed(() => [...internalErrors.value, ...(props.errors ?? [])]))
+
+watch(() => props.keywords, (keywords) => {
+  for (const keyword of keywords) {
+    ajv.addKeyword(keyword)
+  }
+}, { immediate: true })
 
 const validator = computed(() => {
   if (props.defsSchema) {

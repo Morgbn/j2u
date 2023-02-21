@@ -2,6 +2,7 @@ import type { ErrorObject } from 'ajv'
 import type { JSONSchema7, JSONSchema7Definition } from 'json-schema'
 
 export type { Ref } from 'vue'
+export type { KeywordDefinition } from 'ajv'
 
 export type ISchema = JSONSchema7Definition
 

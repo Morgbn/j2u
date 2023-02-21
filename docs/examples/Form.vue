@@ -73,6 +73,11 @@ const schema = {
         },
         required: ['obj_b']
       }
+    },
+    at: {
+      type: 'string',
+      format: 'date',
+      title: 'At'
     }
   },
   required: ['b']
@@ -108,6 +113,9 @@ const defsSchema = {
 const customComponents = {
   boolean: {
     component: defineAsyncComponent(() => import('./CustomCheckbox.vue'))
+  },
+  date: {
+    component: defineAsyncComponent(() => import('./CustomDate.vue'))
   }
 }
 const customWrappers = {

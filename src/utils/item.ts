@@ -1,10 +1,12 @@
 import type { ISchema, IUiSchema, IConfigComponent, ISchemaArray, IAnyObject, IErrorObject } from '@/types'
 
-function getType (schema?: ISchema): string {
+function getType (schema: ISchema, components: IConfigComponent): string {
   if (typeof schema !== 'object') { return 'object' }
   if (schema.enum) { return 'select' }
-  if (Array.isArray(schema.type)) { return schema.type[0] }
-  return schema.type ?? 'object'
+  const { format, type } = schema
+  if (format && components[format]) { return format }
+  if (Array.isArray(type)) { return type[0] }
+  return type ?? 'object'
 }
 
 function getSchema (schema: ISchema, defs: ISchemaArray): ISchema {
@@ -31,7 +33,7 @@ export function getItemInfo (
   schema = getSchema(schema, defsSchema)
   const { component: wrapper, props: fWrapper } = wrappers.item
   const wrapperArgs = fWrapper?.(name, schema, uiSchema) ?? {}
-  const uiType = uiSchema.uiType ?? getType(schema)
+  const uiType = uiSchema.uiType ?? getType(schema, components)
   const path = `${rootPath}/${name}`
   const required = !!requiredEls?.includes(name)
   const error = errors?.find(e => e.instancePath === path)

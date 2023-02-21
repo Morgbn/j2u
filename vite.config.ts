@@ -33,9 +33,8 @@ export default defineConfig({
   build: {
     cssCodeSplit: true,
     lib: {
-      entry: 'src/components/main.ts',
+      entry: resolve(__dirname, 'src/components/main.ts'),
       name: 'JSONSchemaForm',
-      formats: ['es', 'cjs', 'umd'],
       fileName: format => `ajfg.${format}.js`
     },
     rollupOptions: {

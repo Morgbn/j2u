@@ -36,10 +36,11 @@ export function getItemInfo (
   const uiType = uiSchema.uiType ?? getType(schema, components)
   const path = `${rootPath}/${name}`
   const required = !!requiredEls?.includes(name)
+  const readOnly = typeof schema !== 'boolean' ? schema.readOnly : false
   const error = errors?.find(e => e.instancePath === path)
   const cond = uiSchema.cond ?? null
   const { component, props: f } = components[uiType] ?? components.string
   const args = f?.(name, schema, uiSchema) ?? {}
   if (typeof schema !== 'boolean' && schema.type === 'array') { args.name = name }
-  return { name, component, args, wrapper, wrapperArgs, path, required, error, cond }
+  return { name, component, args, wrapper, wrapperArgs, path, required, readOnly, error, cond }
 }

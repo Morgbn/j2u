@@ -1,5 +1,9 @@
 <template>
-  <vue-date-picker v-model="date" />
+  <vue-date-picker
+    v-model="date"
+    :readonly="readOnly"
+    :disabled="readOnly"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -9,6 +13,7 @@ import '@vuepic/vue-datepicker/dist/main.css'
 
 const props = defineProps<{
   modelValue?: string
+  readOnly?: boolean
 }>()
 const emit = defineEmits<{(e: 'update:modelValue', value: string): void }>()
 

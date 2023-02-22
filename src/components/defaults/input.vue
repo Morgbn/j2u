@@ -3,6 +3,8 @@
     :type="isNumber ? 'number' : props.type"
     :value="props.modelValue"
     :step="props.type === 'float' ? 0.1 : ''"
+    :readonly="readOnly"
+    :disabled="readOnly"
     @input="handleInput"
   >
 </template>
@@ -14,6 +16,7 @@ const props = withDefaults(defineProps<{
   modelValue?: string|number,
   type?: 'text'|'integer'|'float',
   allowNegative?: boolean
+  readOnly?: boolean
 }>(), {
   modelValue: '',
   type: 'text',

@@ -55,6 +55,11 @@ const schema = {
       title: 'User Type',
       enum: ['User', 'Editor', 'Admin']
     },
+    f: {
+      type: 'string',
+      readOnly: true,
+      title: 'ReadOnly attr'
+    },
     arr: {
       type: 'array',
       title: 'Array',

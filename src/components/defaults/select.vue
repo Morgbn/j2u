@@ -1,5 +1,5 @@
 <template>
-  <select :value="props.modelValue" style="appearance: button" @input="handleInput">
+  <select :value="props.modelValue" :disabled="readOnly" style="appearance: button" @input="handleInput">
     <option disabled value="">
       Please select one
     </option>
@@ -15,6 +15,7 @@ import { watchEffect } from 'vue'
 const props = withDefaults(defineProps<{
   modelValue?: string,
   options?: Array<any>
+  readOnly?: boolean
 }>(), {
   modelValue: '',
   options: () => []

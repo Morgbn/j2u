@@ -6,6 +6,8 @@
         type="radio"
         :checked="props.modelValue + '' === option"
         :value="option"
+        :readonly="readOnly"
+        :disabled="readOnly"
         @input="handleInput"
       >
       {{ option }}
@@ -19,6 +21,7 @@ const props = withDefaults(defineProps<{
   modelValue?: string,
   options?: Array<any>
   path: string
+  readOnly?: boolean
 }>(), {
   name: '',
   modelValue: '',

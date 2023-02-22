@@ -2,19 +2,21 @@
   <div class="form-array">
     <template v-for="(item, i) in props.array" :key="i">
       🗒️{{ i }}
-      <button v-if="i" @click.prevent="emit('swap', i, -1)">
-        🔼
-      </button>
-      <button v-if="i < props.array.length - 1" @click.prevent="emit('swap', i, 1)">
-        🔽
-      </button>
-      <button style="float: right" @click.prevent="emit('remove', i)">
-        🗑️
-      </button>
+      <template v-if="!readOnly">
+        <button v-if="i" @click.prevent="emit('swap', i, -1)">
+          🔼
+        </button>
+        <button v-if="i < props.array.length - 1" @click.prevent="emit('swap', i, 1)">
+          🔽
+        </button>
+        <button style="float: right" @click.prevent="emit('remove', i)">
+          🗑️
+        </button>
+      </template>
       <slot :item="item" :index="i" />
       <br>
     </template>
-    <button @click.prevent="emit('add')">
+    <button v-if="!readOnly" @click.prevent="emit('add')">
       ➕Add
     </button>
   </div>
@@ -23,6 +25,7 @@
 <script lang="ts" setup>
 const props = defineProps<{
   array: Array<any>
+  readOnly?: boolean
 }>()
 
 const emit = defineEmits<{

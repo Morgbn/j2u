@@ -7,6 +7,7 @@
       :key="item.name"
       v-bind="item.wrapperArgs"
       :required="item.required"
+      :read-only="item.readOnly"
       :error="item.error"
     >
       <component
@@ -16,6 +17,7 @@
         :model-value="props.modelValue[item.name]"
         :path="item.path"
         :required="item.required"
+        :read-only="item.readOnly"
         @update:model-value="(v: any, p: string) => onInput(item, v, p)"
         @blur="(ev: Event, path?: string) => emit('blur', ev, path ?? item.path)"
       />

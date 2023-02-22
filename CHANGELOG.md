@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/morgbn/ajfg/compare/v1.1.0...v1.2.0) (2023-02-22)
+
+
+### Features
+
+* :sparkles: add readOnly prop ([72e1b67](https://github.com/morgbn/ajfg/commit/72e1b67804a078d21a52bf3f67eab18fb04d26d6))
+
 # [1.1.0](https://github.com/morgbn/ajfg/compare/v1.0.1...v1.1.0) (2023-02-21)
 
 

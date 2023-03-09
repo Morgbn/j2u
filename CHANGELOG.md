@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/morgbn/j2u/compare/v1.2.0...v1.3.0) (2023-03-09)
+
+
+### Features
+
+* :sparkles: json list (data iterator/table) ([772adaf](https://github.com/morgbn/j2u/commit/772adafab90056387d68979c377a2c3df2439088))
+
 # [1.2.0](https://github.com/morgbn/j2u/compare/v1.1.0...v1.2.0) (2023-02-22)
 
 

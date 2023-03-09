@@ -1,6 +1,6 @@
 <template>
   <div class="json-list">
-    <slot name="header">
+    <slot name="header" v-bind="slotScope">
       <header style="display: flex; margin-bottom: 12px;">
         <input
           v-model="search"
@@ -32,7 +32,7 @@
       </header>
     </slot>
 
-    <slot v-if="view === 'list'" name="table-header">
+    <slot v-if="view === 'list'" name="table-header" v-bind="slotScope">
       <article :style="{ display: 'grid', gridTemplateColumns: `repeat(${keys.length}, minmax(0,1fr))`,gap: '20px', userSelect: 'none' }">
         <span v-for="key in keys" :key="key.value" :style="{ color: key.value === sortBy ? 'var(--color-sort-by)' : '' }" @click="sortBy == key.value ? (sortDesc ? sortDesc = false : sortBy = '') : (sortBy = key.value) && (sortDesc = true)">
           {{ key.value === sortBy ? (sortDesc ? '↑' : '↓') : '' }}
@@ -41,9 +41,9 @@
       </article>
     </slot>
 
-    <slot :items="items" :view="view" :keys="keys" :sort-by="sortBy">
+    <slot v-bind="slotScope">
       <div :style="view == 'card' ? { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' } : {}">
-        <slot v-for="item in items" name="item" :item="item">
+        <slot v-for="item in items" name="item" v-bind="slotScope" :item="item">
           <article
             :key="item[props.itemKey]"
             :style="view === 'card' ? {} : { display: 'grid', gridTemplateColumns: `repeat(${keys.length}, minmax(0,1fr))`, gap: '20px' }"
@@ -56,7 +56,7 @@
         </slot>
       </div>
     </slot>
-    <slot name="footer">
+    <slot name="footer" v-bind="slotScope">
       <footer style="display: flex; justify-content: space-between; user-select: none;">
         <p>
           <span>{{ i18n.itemsPerPage }}</span>&nbsp;
@@ -105,6 +105,13 @@ const props = withDefaults(defineProps<{
   i18n: () => ({})
 })
 
+const page = useLocalProp<number>('page', props)
+const search = useLocalProp<string>('search', props)
+const sortBy = useLocalProp<string>('sortBy', props)
+const sortDesc = useLocalProp<boolean>('sortDesc', props)
+const itemsPerPage = useLocalProp<number>('itemsPerPage', props)
+const view = useLocalProp<string>('view', props)
+
 const i18n = computed(() => ({
   // default values:
   ':': ': ',
@@ -125,13 +132,6 @@ const i18n = computed(() => ({
   // user values from prop:
   ...props.i18n
 }))
-
-const page = useLocalProp<number>('page', props)
-const search = useLocalProp<string>('search', props)
-const sortBy = useLocalProp<string>('sortBy', props)
-const sortDesc = useLocalProp<boolean>('sortDesc', props)
-const itemsPerPage = useLocalProp<number>('itemsPerPage', props)
-const view = useLocalProp<string>('view', props)
 
 const searchedItems = computed(() => {
   if (!search.value) { return props.items }
@@ -180,6 +180,20 @@ const keys = computed(() => {
   }
   return keys
 })
+
+const slotScope = computed(() => ({
+  page: page.value,
+  search: search.value,
+  sortBy: sortBy.value,
+  sortDesc: sortDesc.value,
+  itemsPerPage: itemsPerPage.value,
+  view: view.value,
+  i18n: i18n.value,
+  nPages: nPages.value,
+  items: items.value,
+  keys: keys.value,
+  exportAsCsv
+}))
 
 const exportAsCsv = () => {
   const arr = [keys.value.map(k => k.title)]

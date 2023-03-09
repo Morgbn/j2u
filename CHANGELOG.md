@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/morgbn/j2u/compare/v1.3.1...v1.3.2) (2023-03-09)
+
+
+### Bug Fixes
+
+* :art: add missing scope vars ([2cc7e43](https://github.com/morgbn/j2u/commit/2cc7e4325ec41aad15c0d9fad71c1b210a7597b1))
+
 ## [1.3.1](https://github.com/morgbn/j2u/compare/v1.3.0...v1.3.1) (2023-03-09)
 
 

@@ -11,5 +11,5 @@ title: Get started
 ## Installation
 
 ```sh
-yarn add ajfg # npm i ajfg
+yarn add j2u # npm i j2u
 ```

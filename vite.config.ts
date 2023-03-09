@@ -35,7 +35,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/components/main.ts'),
       name: 'JSONSchemaForm',
-      fileName: format => `ajfg.${format}.js`
+      fileName: format => `j2u.${format}.js`
     },
     rollupOptions: {
       external: ['vue'],
@@ -44,7 +44,7 @@ export default defineConfig({
       },
       output: {
         assetFileNames: (assetInfo) => {
-          return assetInfo.name === 'main.css' ? 'ajfg.css' : assetInfo.name
+          return assetInfo.name === 'main.css' ? 'j2u.css' : assetInfo.name
         },
         exports: 'named',
         globals: {

@@ -1,6 +1,6 @@
 {
-  "name": "ajfg",
-  "description": "Form generator based on JSON Schema",
+  "name": "j2u",
+  "description": "Json schema Ui Utilities (Form generator, List, Filter)",
   "license": "MIT",
   "keywords": [
     "vue",
@@ -16,16 +16,16 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/ajfg-ts.umd.js",
-  "module": "./dist/ajfg-ts.es.js",
+  "main": "./dist/j2u-ts.umd.js",
+  "module": "./dist/j2u-ts.es.js",
   "exports": {
     ".": {
-      "import": "./dist/ajfg.es.js",
-      "require": "./dist/ajfg.umd.js"
+      "import": "./dist/j2u.es.js",
+      "require": "./dist/j2u.umd.js"
     },
-    "./dist/ajfg.css": {
-      "import": "./dist/ajfg.css",
-      "require": "./dist/ajfg.css"
+    "./dist/j2u.css": {
+      "import": "./dist/j2u.css",
+      "require": "./dist/j2u.css"
     }
   },
   "types": "./dist/main.d.ts",
@@ -61,6 +61,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/morgbn/ajfg.git"
+    "url": "https://github.com/morgbn/j2u.git"
   }
 }

@@ -10,12 +10,12 @@ const getItems = folder => readdirSync(resolve(__dirname, `../${folder}`))
   .map((path) => ({ text: path.replace(/-|.md/g, ' '), link: `/${folder}/${path.slice(0, -3)}` }))
 
 export default {
-  title: 'AJFG',
-  description: 'AJFG, Another JSON schema Form Generator',
+  title: 'J2U',
+  description: 'J2U, Another JSON schema Form Generator',
   themeConfig: {
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/Morgbn/ajfg' },
+      { icon: 'github', link: 'https://github.com/Morgbn/j2u' },
       { icon: 'twitter', link: 'https://twitter.com/MorgbnDev' },
     ],
 
@@ -33,11 +33,11 @@ export default {
     ],
 
     editLink: {
-      pattern: 'https://github.com/morgbn/ajfg/edit/main/docs/:path'
+      pattern: 'https://github.com/morgbn/j2u/edit/main/docs/:path'
     },
     
     footer: {
-      message: 'Released under the <a href="https://github.com/morgbn/ajfg/blob/main/LICENSE">MIT License</a>.',
+      message: 'Released under the <a href="https://github.com/morgbn/j2u/blob/main/LICENSE">MIT License</a>.',
       copyright: 'Copyright © 2023-present <a href="https://github.com/morgbn">Morgbn</a>'
     }
   },

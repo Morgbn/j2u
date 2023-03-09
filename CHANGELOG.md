@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/morgbn/j2u/compare/v1.3.0...v1.3.1) (2023-03-09)
+
+
+### Bug Fixes
+
+* :adhesive_bandage: export JsonList component ([1ec2a49](https://github.com/morgbn/j2u/commit/1ec2a498317e1836e833db2dc4c83e5f4011c1fc))
+
 # [1.3.0](https://github.com/morgbn/j2u/compare/v1.2.0...v1.3.0) (2023-03-09)
 
 

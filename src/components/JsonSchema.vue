@@ -34,7 +34,6 @@ const props = withDefaults(defineProps<{
   wrappers?: IConfigComponent
   errors?: IErrorObject[]
   validateTrigger?: 'blur'|'change'
-  useDefaultStyles?: boolean
   defsSchema?: ISchemaArray
   keywords?: KeywordDefinition[]
   i18n?: ILocalize
@@ -43,7 +42,6 @@ const props = withDefaults(defineProps<{
   modelValue: () => ({}),
   components: () => ({}),
   keywords: () => [],
-  useDefaultStyles: true,
   validateTrigger: 'blur'
 })
 

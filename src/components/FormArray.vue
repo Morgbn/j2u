@@ -62,7 +62,7 @@ const items = computed(() => props.modelValue.map((_, i) =>
   getItemInfo(`${i}`, props.schema.items, props.uiSchema?.items || {}, props.path, components.value, wrappers.value, defsSchema.value, errors.value)))
 
 function updateValue (action: (arg: Array<any>) => void, path?: string) {
-  const newVal = [...props.modelValue]
+  const newVal = [...(props.modelValue ?? [])]
   action(newVal)
   emit('update:modelValue', newVal, path ?? props.path)
 }

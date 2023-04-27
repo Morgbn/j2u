@@ -1,3 +1,11 @@
+## [1.3.3](https://github.com/morgbn/j2u/compare/v1.3.2...v1.3.3) (2023-04-27)
+
+
+### Bug Fixes
+
+* :adhesive_bandage: prevent update array error if it was null ([232b86c](https://github.com/morgbn/j2u/commit/232b86cddd1f053d1cb07a61eaab694cb9266ce9))
+* :fire: rm unused prop ([402d1ad](https://github.com/morgbn/j2u/commit/402d1ad8671032da42f8cb8f76d936ed14ab7199))
+
 ## [1.3.2](https://github.com/morgbn/j2u/compare/v1.3.1...v1.3.2) (2023-03-09)
 
 

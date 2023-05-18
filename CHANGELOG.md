@@ -1,3 +1,11 @@
+# [1.4.0](https://github.com/morgbn/j2u/compare/v1.3.3...v1.4.0) (2023-05-18)
+
+
+### Features
+
+* :sparkles: add support for items array + maxItems / minItems + additionalItems + ui order ([1350d9f](https://github.com/morgbn/j2u/commit/1350d9fb14a7da72d509738c7acd7556d4e17227))
+* :sparkles: allow additional ui items ([1bc7ba0](https://github.com/morgbn/j2u/commit/1bc7ba0e207e91ae40458fd3dfea9f96df15c9f3))
+
 ## [1.3.3](https://github.com/morgbn/j2u/compare/v1.3.2...v1.3.3) (2023-04-27)
 
 

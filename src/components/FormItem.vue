@@ -2,7 +2,7 @@
   <div class="form-item">
     <component
       :is="item.wrapper"
-      v-for="item in items"
+      v-for="item in allItems"
       v-show="!item.cond || item.cond(form, item.path)"
       :key="item.name"
       v-bind="item.wrapperArgs"
@@ -60,8 +60,18 @@ const errors = inject('errors') as Ref<IErrorObject[]>
 const items = computed(() => {
   return Object.entries(props.schema?.properties || {})
     .map(([name, schema]: [string, ISchema]) => getItemInfo(name, schema, props.uiSchema.properties?.[name] || {}, props.path, components.value, wrappers.value, defsSchema.value, errors.value, props.schema.required ?? []))
-    .sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity))
 })
+
+const uiItems = computed(() => {
+  const added = props.schema?.properties || {}
+  const uiProps = props.uiSchema.properties || {}
+  return Object.keys(uiProps)
+    .filter(key => !added[key])
+    .map(key => getItemInfo(key, uiProps[key], uiProps[key], props.path, components.value, wrappers.value, defsSchema.value, errors.value, props.schema.required ?? []))
+})
+
+const allItems = computed(() => [...items.value, ...uiItems.value]
+  .sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity)))
 
 function onInput ({ name, path }: { name: string, path: string }, val: any, fromPath?: string) {
   const newVal = { ...props.modelValue } as IAnyObject

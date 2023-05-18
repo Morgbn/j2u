@@ -16,18 +16,22 @@
       <slot :item="item" :index="i" />
       <br>
     </template>
-    <button v-if="!readOnly" @click.prevent="emit('add')">
+    <button v-if="!readOnly && (props.array.length < maxItems)" @click.prevent="emit('add')">
       ➕Add
     </button>
   </div>
 </template>
 
 <script lang="ts" setup>
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   array: Array<any>
   readOnly?: boolean
-}>()
-
+  maxItems?: number
+  minItems?: number
+}>(), {
+  maxItems: Infinity,
+  minItems: 0
+})
 const emit = defineEmits<{
   (e: 'swap', index: number, direction: number): void
   (e: 'remove', index: number): void

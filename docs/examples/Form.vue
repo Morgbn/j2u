@@ -60,9 +60,20 @@ const schema = {
       readOnly: true,
       title: 'ReadOnly attr'
     },
+    address: {
+      type: 'array',
+      title: 'Tuple',
+      items: [
+        { type: 'number', title: 'Address number' },
+        { type: 'string', title: 'Name of the street' },
+        { enum: ['Street', 'Avenue', 'Boulevard'], title: 'Type of street' },
+        { enum: ['NW', 'NE', 'SW', 'SE'], title: 'City quadrant' }
+      ]
+    },
     arr: {
       type: 'array',
       title: 'Array',
+      maxItems: 4,
       items: {
         type: 'object',
         title: 'Object',

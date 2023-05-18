@@ -33,6 +33,7 @@ export function getItemInfo (
   schema = getSchema(schema, defsSchema)
   const { component: wrapper, props: fWrapper } = wrappers.item
   const wrapperArgs = fWrapper?.(name, schema, uiSchema) ?? {}
+  const order = uiSchema.order
   const uiType = uiSchema.uiType ?? getType(schema, components)
   const path = `${rootPath}/${name}`
   const required = !!requiredEls?.includes(name)
@@ -42,5 +43,5 @@ export function getItemInfo (
   const { component, props: f } = components[uiType] ?? components.string
   const args = f?.(name, schema, uiSchema) ?? {}
   if (typeof schema !== 'boolean' && schema.type === 'array') { args.name = name }
-  return { name, component, args, wrapper, wrapperArgs, path, required, readOnly, error, cond }
+  return { name, component, args, wrapper, wrapperArgs, path, required, readOnly, error, cond, order }
 }

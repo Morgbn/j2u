@@ -60,6 +60,7 @@ const errors = inject('errors') as Ref<IErrorObject[]>
 const items = computed(() => {
   return Object.entries(props.schema?.properties || {})
     .map(([name, schema]: [string, ISchema]) => getItemInfo(name, schema, props.uiSchema.properties?.[name] || {}, props.path, components.value, wrappers.value, defsSchema.value, errors.value, props.schema.required ?? []))
+    .sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity))
 })
 
 function onInput ({ name, path }: { name: string, path: string }, val: any, fromPath?: string) {

@@ -15,7 +15,7 @@ export interface ISchemaObject extends JSONSchema7 {
 
 export interface ISchemaArray extends JSONSchema7 {
   type: 'array'
-  items: JSONSchema7Definition
+  items: JSONSchema7Definition|JSONSchema7Definition[]
 }
 
 export interface IUiSchema {
@@ -24,8 +24,10 @@ export interface IUiSchema {
   properties?: { [key: string]: IUiSchema }
   disabled?: boolean,
   uiType?: string
-  items?: IUiSchema
+  items?: IUiSchema|IUiSchema[]
   cond?: (form: IAnyObject, path: string) => boolean
+  // component props
+  [key: string]: any
 }
 
 export type IErrorObject = ErrorObject<string, Record<string, any>, unknown>

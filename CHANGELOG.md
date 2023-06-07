@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/morgbn/j2u/compare/v1.4.0...v1.4.1) (2023-06-07)
+
+
+### Bug Fixes
+
+* :bug: add array wrapper props binding ([5246a91](https://github.com/morgbn/j2u/commit/5246a91e321c53fe54d5cabb8df1b6b31a8b17e6))
+
 # [1.4.0](https://github.com/morgbn/j2u/compare/v1.3.3...v1.4.0) (2023-05-18)
 
 

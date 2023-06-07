@@ -20,6 +20,7 @@
   </template>
   <component
     :is="wrappers.array.component"
+    v-bind="arrayWrapperArgs"
     v-if="items"
     :array="itemsValues"
     :max-items="maxItems"
@@ -65,8 +66,8 @@ import type { Ref, ISchemaArray, IUiSchema, IAnyObject, IConfigComponent, IError
 
 const props = withDefaults(defineProps<{
   name: string,
-  schema: ISchemaArray,
-  uiSchema: IUiSchema,
+  schema: ISchemaArray
+  uiSchema: IUiSchema
   modelValue: Array<any>
   path: string
   readOnly?: boolean
@@ -115,6 +116,8 @@ const itemsValues = computed(() => Array.isArray(props.schema.items)
 
 const maxItems = computed(() => (props.schema.maxItems ?? Infinity) - (tuple.value?.length ?? 0))
 const minItems = computed(() => (props.schema.minItems ?? -Infinity) - (tuple.value?.length ?? 0))
+
+const arrayWrapperArgs = computed(() => wrappers.value.array.props?.(props.name, props.schema, props.uiSchema) ?? {})
 
 watch(() => props.modelValue, (v) => {
   const val = v ?? []

@@ -1,7 +1,7 @@
 <template>
   <div class="form-array">
     <template v-for="(item, i) in props.array" :key="i">
-      🗒️{{ i }}
+      {{ labelFunction(i) }}
       <template v-if="!readOnly">
         <button v-if="i" @click.prevent="emit('swap', i, -1)">
           🔼
@@ -28,9 +28,11 @@ const props = withDefaults(defineProps<{
   readOnly?: boolean
   maxItems?: number
   minItems?: number
+  labelFunction?: (i: number) => string
 }>(), {
   maxItems: Infinity,
-  minItems: 0
+  minItems: 0,
+  labelFunction: (i: number) => `${i}`
 })
 const emit = defineEmits<{
   (e: 'swap', index: number, direction: number): void

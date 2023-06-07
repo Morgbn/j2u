@@ -104,6 +104,7 @@ const uiSchema = {
       cond: (form, _path) => form?.b >= 18
     },
     arr: {
+      labelFunction: i => `📄 ${i}`,
       items: {
         properties: {
           obj_a: {
@@ -143,7 +144,10 @@ const customWrappers = {
     })
   },
   array: {
-    component: defineAsyncComponent(() => import('./CustomArray.vue'))
+    component: defineAsyncComponent(() => import('./CustomArray.vue')),
+    props: (_, __, uiSchema) => ({
+      labelFunction: uiSchema?.labelFunction
+    })
   }
 }
 </script>

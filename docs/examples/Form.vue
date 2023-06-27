@@ -10,6 +10,7 @@
         :defs-schema="defsSchema"
         :components="customComponents"
         :wrappers="customWrappers"
+        :read-only="readOnly"
         :i18n="fr"
       />
       <div style="display: flex; gap: 15px; margin-top: 20px;">
@@ -19,6 +20,10 @@
         <button @click="form.validate">
           🟩 VALIDATE
         </button>
+        <div>
+          <input id="readOnly" v-model="readOnly" type="checkbox" name="readOnly" checked>
+          <label for="readOnly">ALL READ-ONLY</label>
+        </div>
       </div>
     </div>
   </div>
@@ -30,6 +35,7 @@ import fr from 'ajv-i18n/localize/fr'
 import JsonSchema from '@/components/JsonSchema.vue'
 fr.required = 'champ requis'
 
+const readOnly = ref(false)
 const form = ref(null)
 const data = ref({})
 const schema = {

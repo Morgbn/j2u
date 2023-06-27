@@ -5,6 +5,7 @@
         :schema="props.schema"
         :ui-schema="uiSchema"
         :model-value="modelValue"
+        :read-only="readOnly"
         @update:model-value="onUpdate"
         @blur="onBlur"
       />
@@ -37,6 +38,7 @@ const props = withDefaults(defineProps<{
   defsSchema?: ISchemaArray
   keywords?: KeywordDefinition[]
   i18n?: ILocalize
+  readOnly?: boolean
 }>(), {
   uiSchema: () => ({}),
   modelValue: () => ({}),

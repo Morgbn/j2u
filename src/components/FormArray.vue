@@ -6,6 +6,7 @@
       v-show="cond(tSchema)"
       :required="tSchema.required"
       :error="tSchema.error"
+      :read-only="readOnly || tSchema.readOnly"
     >
       <component
         :is="tSchema.component"
@@ -13,6 +14,7 @@
         v-bind="tSchema.args"
         :path="tSchema.path"
         :required="tSchema.required"
+        :read-only="readOnly || tSchema.readOnly"
         @update:model-value="(v: any, p?: string) => onInput(index, v, p)"
         @blur="(ev: Event, path?: string) => tSchema ? emit('blur', ev, path ?? tSchema.path) : null"
       />
@@ -29,8 +31,8 @@
     :schema="schema"
     :ui-schema="uiSchema"
     :path="path"
-    :read-only="props.readOnly"
-    :required="props.required"
+    :read-only="readOnly"
+    :required="required"
     :offset="tupleValues.length"
     @add="addNewItem"
     @swap="(i: number, n: number) => swap(i + tupleValues.length, n)"
@@ -43,6 +45,7 @@
         v-show="cond(items[index])"
         :required="items[index].required"
         :error="items[index].error"
+        :read-only="readOnly || items[index].readOnly"
       >
         <component
           :is="items[index].component"
@@ -50,6 +53,7 @@
           v-bind="items[index].args"
           :path="items[index].path"
           :required="items[index].required"
+          :read-only="readOnly || items[index].readOnly"
           @update:model-value="(v: any, p?: string) => onInput(index + tupleValues.length, v, p)"
           @blur="(ev: Event, path?: string) => items ? emit('blur', ev, path ?? items[index].path) : null"
         />

@@ -7,17 +7,17 @@
       :key="item.name"
       v-bind="item.wrapperArgs"
       :required="item.required"
-      :read-only="item.readOnly"
+      :read-only="readOnly || item.readOnly"
       :error="item.error"
     >
       <component
         :is="item.component"
-        v-if="props.modelValue"
+        v-if="modelValue"
         v-bind="item.args"
-        :model-value="props.modelValue[item.name]"
+        :model-value="modelValue[item.name]"
         :path="item.path"
         :required="item.required"
-        :read-only="item.readOnly"
+        :read-only="readOnly || item.readOnly"
         @update:model-value="(v: any, p: string) => onInput(item, v, p)"
         @blur="(ev: Event, path?: string) => emit('blur', ev, path ?? item.path)"
       />
@@ -36,6 +36,7 @@ const props = withDefaults(defineProps<{
   uiSchema: IUiSchema
   modelValue: IAnyObject
   path?: string
+  readOnly?: boolean
 }>(), {
   path: ''
 })

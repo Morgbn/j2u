@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/morgbn/j2u/compare/v1.4.1...v1.5.0) (2023-06-27)
+
+
+### Features
+
+* :sparkles: JsonSchema global readOnly ([73d6a6f](https://github.com/morgbn/j2u/commit/73d6a6fb9f62f963e031ad547eed72e193690249))
+
 ## [1.4.1](https://github.com/morgbn/j2u/compare/v1.4.0...v1.4.1) (2023-06-07)
 
 

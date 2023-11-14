@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/morgbn/j2u/compare/v1.5.0...v1.5.1) (2023-11-14)
+
+
+### Bug Fixes
+
+* :bug: handle null for array ([7a0635a](https://github.com/morgbn/j2u/commit/7a0635a541b7b7663e4cf086d7145066c90d661e))
+
 # [1.5.0](https://github.com/morgbn/j2u/compare/v1.4.1...v1.5.0) (2023-06-27)
 
 

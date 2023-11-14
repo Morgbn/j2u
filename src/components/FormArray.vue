@@ -72,7 +72,7 @@ const props = withDefaults(defineProps<{
   name: string,
   schema: ISchemaArray
   uiSchema: IUiSchema
-  modelValue: Array<any>
+  modelValue: Array<any>|null
   path: string
   readOnly?: boolean
   required?: boolean
@@ -98,14 +98,14 @@ const tuple = computed(() => {
     .sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity))
 })
 
-const tupleValues = computed(() => Array.isArray(props.schema.items)
+const tupleValues = computed(() => (props.modelValue && Array.isArray(props.schema.items))
   ? props.modelValue.slice(0, props.schema.items.length)
   : [])
 
 const items = computed(() => {
   const schema = tuple.value ? props.schema.additionalItems : props.schema.items
   const uiSchemas = tuple.value ? props.uiSchema?.additionalItems : props.uiSchema?.items
-  if (!schema || Array.isArray(schema)) { return null }
+  if (!props.modelValue || !schema || Array.isArray(schema)) { return null }
   const items = []
   const max = Math.min(props.modelValue.length, props.schema.maxItems ?? Infinity)
   for (let i = tupleValues.value.length; i < max; i++) {
@@ -114,7 +114,7 @@ const items = computed(() => {
   return items
 })
 
-const itemsValues = computed(() => Array.isArray(props.schema.items)
+const itemsValues = computed(() => (props.modelValue && Array.isArray(props.schema.items))
   ? props.modelValue.slice(props.schema.items.length)
   : props.modelValue)
 

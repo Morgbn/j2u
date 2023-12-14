@@ -1,6 +1,6 @@
 <template>
   <div class="form">
-    <form novalidate>
+    <form novalidate @submit="e => emit('native:submit', e)">
       <form-item
         :schema="props.schema"
         :ui-schema="uiSchema"
@@ -50,6 +50,7 @@ const props = withDefaults(defineProps<{
 const emit = defineEmits<{
   (e: 'update:modelValue', value: IAnyObject): void
   (e: 'submit', event: Event): void
+  (e: 'native:submit', event: Event): void
 }>()
 
 provide('form', computed(() => props.modelValue))

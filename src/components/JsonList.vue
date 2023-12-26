@@ -76,17 +76,17 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup generic="T extends IAnyObject">
 import { computed } from 'vue'
 import { useLocalProp } from '@/utils/localProp'
 import { downloadBlob, arrayToCsv } from '@/utils/blob'
 import type { IAnyObject, ISchemaObject } from '@/types'
 
-type ISortFunc = (a: IAnyObject, b: IAnyObject) => number
+type ISortFunc = (a: T, b: T) => number
 
 const props = withDefaults(defineProps<{
   schema: ISchemaObject
-  items: IAnyObject[]
+  items: T[]
   itemKey?: string
   itemsPerPage?: number
   page?: number
@@ -141,12 +141,12 @@ const searchedItems = computed(() => {
       .find(v => JSON.stringify(v).toLocaleLowerCase().includes(txt)))
 })
 
-const sorters: { [key: string]: (attr: string) => ISortFunc } = {
-  string: (attr: string) => (a: IAnyObject, b: IAnyObject) => (a[attr] ?? '').localeCompare(b[attr] ?? ''),
-  number: (attr: string) => (a: IAnyObject, b: IAnyObject) => a[attr] - b[attr],
-  integer: (attr: string) => (a: IAnyObject, b: IAnyObject) => a[attr] - b[attr],
-  boolean: (attr: string) => (a: IAnyObject) => a[attr] ? 1 : -1,
-  array: (attr: string) => (a: IAnyObject, b: IAnyObject) => a[attr].length - b[attr].length
+const sorters: Record<string, (attr: string) => ISortFunc> = {
+  string: attr => (a, b) => (a[attr] ?? '').localeCompare(b[attr] ?? ''),
+  number: attr => (a, b) => a[attr] - b[attr],
+  integer: attr => (a, b) => a[attr] - b[attr],
+  boolean: attr => a => a[attr] ? 1 : -1,
+  array: attr => (a, b) => a[attr].length - b[attr].length
 }
 const sortedItems = computed(() => { // sortedItems
   const items = [...searchedItems.value]

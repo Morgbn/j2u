@@ -129,6 +129,8 @@ const i18n = computed(() => ({
   prevPage: 'Previous page',
   toggleViewList: 'View items in card mode',
   toggleViewCard: 'View items in row mode',
+  true: 'True',
+  false: 'False',
   // user values from prop:
   ...props.i18n
 }))
@@ -136,9 +138,10 @@ const i18n = computed(() => ({
 const searchedItems = computed(() => {
   if (!search.value) { return props.items }
   const txt = search.value.toLocaleLowerCase()
+  const getValStr = (v: any) => typeof v === 'string' ? v : (v == null ? '' : (typeof v === 'boolean' ? i18n.value[v ? 'true' : 'false'] : JSON.stringify(v)))
   return props.items
     .filter(item => Object.values(item)
-      .find(v => JSON.stringify(v).toLocaleLowerCase().includes(txt)))
+      .find(v => getValStr(v).toLocaleLowerCase().includes(txt)))
 })
 
 const sorters: Record<string, (attr: string) => ISortFunc> = {

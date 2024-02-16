@@ -1,3 +1,17 @@
+# [1.6.0](https://github.com/morgbn/j2u/compare/v1.5.2...v1.6.0) (2024-02-16)
+
+
+### Bug Fixes
+
+* :art: better search given type ([2eb1cb5](https://github.com/morgbn/j2u/commit/2eb1cb5f0c62fa95f9e6a4e983ddbbd540c9c7e3))
+* :label: better types ([f342e5f](https://github.com/morgbn/j2u/commit/f342e5f30c06a38a625a8bcbe43079059d39f9f1))
+
+
+### Features
+
+* :sparkles: add possibility to set default array item ([123189a](https://github.com/morgbn/j2u/commit/123189a4bb384cde56a0f6acb2e73f4c808116ee))
+* :sparkles: generic items type ([2973a99](https://github.com/morgbn/j2u/commit/2973a999ece1186f2ec1e748eb7cf3ed66c201c1))
+
 ## [1.5.2](https://github.com/morgbn/j2u/compare/v1.5.1...v1.5.2) (2023-12-14)
 
 

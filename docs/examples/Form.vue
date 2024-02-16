@@ -111,6 +111,7 @@ const uiSchema = {
     },
     arr: {
       labelFunction: i => `📄 ${i}`,
+      defaultItem: { obj_b: '🥗' },
       items: {
         properties: {
           obj_a: {
@@ -151,9 +152,7 @@ const customWrappers = {
   },
   array: {
     component: defineAsyncComponent(() => import('./CustomArray.vue')),
-    props: (_, __, uiSchema) => ({
-      labelFunction: uiSchema?.labelFunction
-    })
+    props: (_, __, uiSchema) => ({ ...uiSchema })
   }
 }
 </script>

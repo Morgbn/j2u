@@ -143,7 +143,7 @@ const cond = (item: any) => !item.cond || item.cond(form, item.path)
 const onInput = (i: number, val: any, path?: string) =>
   updateValue(newVal => newVal.splice(i, 1, val), path)
 
-const addNewItem = () => updateValue(newVal => newVal.push(undefined))
+const addNewItem = (item?: any) => updateValue(newVal => newVal.push(item))
 
 const swap = (i: number, n: number) =>
   updateValue(newVal => ([newVal[i + n], newVal[i]] = [newVal[i], newVal[i + n]]))

@@ -16,7 +16,7 @@
       <slot :item="item" :index="i" />
       <br>
     </template>
-    <button v-if="!readOnly && (props.array.length < maxItems)" @click.prevent="emit('add')">
+    <button v-if="!readOnly && (props.array.length < maxItems)" @click.prevent="emit('add', props.defaultItem)">
       ➕Add
     </button>
   </div>
@@ -29,6 +29,7 @@ const props = withDefaults(defineProps<{
   maxItems?: number
   minItems?: number
   labelFunction?: (i: number) => string
+  defaultItem?: Record<string, any>
 }>(), {
   maxItems: Infinity,
   minItems: 0,
@@ -37,6 +38,6 @@ const props = withDefaults(defineProps<{
 const emit = defineEmits<{
   (e: 'swap', index: number, direction: number): void
   (e: 'remove', index: number): void
-  (e: 'add'): void
+  (e: 'add', item?: Record<string, any>): void
 }>()
 </script>

@@ -28,7 +28,7 @@ jobs:
           github.event_name == 'push' &&
           !contains(github.event.head_commit.message, '[skip-release]')
         run: |
-          yarn global add semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/npm @semantic-release/git @semantic-release/github && 
+          yarn global add semantic-release@22.0.12 @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/npm @semantic-release/git @semantic-release/github && 
           semantic-release
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

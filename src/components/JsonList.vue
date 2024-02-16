@@ -25,7 +25,7 @@
           <button @click="exportAsCsv">
             ↗ {{ i18n.exportAsCsv }}
           </button>
-          <button :aria-label="i18n['toggleView'+view[0].toUpperCase()+view.slice(1)]" @click="view = view == 'card' ? 'list' : 'card'">
+          <button :aria-label="i18n[view === 'card' ? 'toggleViewCard' : 'toggleViewList']" @click="view = view == 'card' ? 'list' : 'card'">
             {{ view == 'card' ? '⊞' : '⊟' }}
           </button>
         </div>
@@ -43,7 +43,7 @@
 
     <slot v-bind="slotScope">
       <div :style="view == 'card' ? { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' } : {}">
-        <slot v-for="item in items" name="item" v-bind="slotScope" :item="item">
+        <slot v-for="item in pageItems" name="item" v-bind="slotScope" :item="item">
           <article
             :key="item[props.itemKey]"
             :style="view === 'card' ? {} : { display: 'grid', gridTemplateColumns: `repeat(${keys.length}, minmax(0,1fr))`, gap: '20px' }"
@@ -169,7 +169,7 @@ const reorderedItems = computed(() => sortDesc.value ? sortedItems.value : [...s
 
 const nPages = computed(() => Math.ceil(searchedItems.value.length / itemsPerPage.value))
 
-const items = computed(() => { // onPageItems
+const pageItems = computed(() => {
   const from = (page.value - 1) * itemsPerPage.value
   const to = from + itemsPerPage.value
   return reorderedItems.value.slice(from, to)
@@ -193,7 +193,7 @@ const slotScope = computed(() => ({
   view: view.value,
   i18n: i18n.value,
   nPages: nPages.value,
-  items: items.value,
+  items: pageItems.value,
   keys: keys.value,
   exportAsCsv
 }))

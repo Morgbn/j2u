@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/morgbn/j2u/compare/v1.6.0...v1.7.0) (2024-02-20)
+
+
+### Features
+
+* :sparkles: add `JsonSchemaWithoutAjv`component ([ea14c71](https://github.com/morgbn/j2u/commit/ea14c71552cc1387d5270e180713fa8bac936f75))
+
 # [1.6.0](https://github.com/morgbn/j2u/compare/v1.5.2...v1.6.0) (2024-02-16)
 
 

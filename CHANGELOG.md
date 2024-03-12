@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/morgbn/j2u/compare/v1.7.0...v1.7.1) (2024-03-12)
+
+
+### Bug Fixes
+
+* :adhesive_bandage: set debounce only in form-item ([7892aec](https://github.com/morgbn/j2u/commit/7892aec8a2a6604d01abeace98967046917c6ff3))
+
 # [1.7.0](https://github.com/morgbn/j2u/compare/v1.6.0...v1.7.0) (2024-02-20)
 
 

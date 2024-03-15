@@ -18,7 +18,6 @@
 import { computed, nextTick, provide, ref, watch } from 'vue'
 import type { ValidateFunction } from 'ajv'
 import { defaultComponents, defaultWrappers, rootComponents } from '@/utils/defaultComponents'
-import { debounce } from '@/utils/debounce'
 import FormItem from '@/components/FormItem.vue'
 
 import type { Ref, ISchemaObject, IUiSchema, IAnyObject, IConfigComponent, IErrorObject, ISchemaArray, ILocalize } from '@/types'
@@ -89,18 +88,18 @@ function validateWith (path: string) {
   nextTick(validate) // emit -> 1 tick -> updated
 }
 
-const onUpdate = debounce((v: IAnyObject, path: string) => {
+const onUpdate = (v: IAnyObject, path: string) => {
   emit('update:modelValue', v)
   if (props.validateTrigger === 'change') {
     validateWith(path)
   }
-})
+}
 
-const onBlur = debounce((ev: Event, path: string) => {
+const onBlur = (ev: Event, path: string) => {
   if (props.validateTrigger === 'blur') {
     validateWith(path)
   }
-})
+}
 
 watch(() => props.modelValue, () => { // set default values
   const stringified = JSON.stringify(props.modelValue)

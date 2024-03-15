@@ -28,7 +28,6 @@
 <script lang="ts" setup>
 import { onMounted, inject, computed } from 'vue'
 import { getItemInfo } from '@/utils/item'
-import { debounce } from '@/utils/debounce'
 
 import type { Ref, ISchemaObject, IUiSchema, IAnyObject, IConfigComponent, ISchemaArray, ISchema, IErrorObject } from '@/types'
 
@@ -75,9 +74,9 @@ const uiItems = computed(() => {
 const allItems = computed(() => [...items.value, ...uiItems.value]
   .sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity)))
 
-const onInput = debounce(({ name, path }: { name: string, path: string }, val: any, fromPath?: string) => {
+const onInput = ({ name, path }: { name: string, path: string }, val: any, fromPath?: string) => {
   const newVal = { ...props.modelValue } as IAnyObject
   newVal[name] = val
   emit('update:modelValue', newVal, fromPath ?? path)
-})
+}
 </script>

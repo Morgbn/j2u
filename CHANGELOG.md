@@ -1,3 +1,12 @@
+## [1.7.2](https://github.com/morgbn/j2u/compare/v1.7.1...v1.7.2) (2024-03-15)
+
+
+### Bug Fixes
+
+* :arrow_up: upgrade dependencies ([2c1bce1](https://github.com/morgbn/j2u/commit/2c1bce1605535d2b060ddaf708fc87b72ad2300b))
+* :fire: rm debounce ([43c5ac3](https://github.com/morgbn/j2u/commit/43c5ac3e46314e880f679c2cfae4656c38433a6f))
+* :green_heart: set node version to 20 ([de9a473](https://github.com/morgbn/j2u/commit/de9a473fa8d6e0fcfcf170485941044c4fd239cc))
+
 ## [1.7.1](https://github.com/morgbn/j2u/compare/v1.7.0...v1.7.1) (2024-03-12)
 
 

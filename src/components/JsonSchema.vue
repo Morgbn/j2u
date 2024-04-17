@@ -35,7 +35,7 @@ const props = withDefaults(defineProps<{
   errors?: IErrorObject[]
   validateTrigger?: 'blur'|'change'
   defsSchema?: ISchemaArray
-  keywords?: KeywordDefinition[]
+  keywords?: (KeywordDefinition & { removeKeyword?: string })[]
   i18n?: ILocalize
   readOnly?: boolean
 }>(), {
@@ -62,6 +62,7 @@ provide('errors', computed(() => [...internalErrors.value, ...(props.errors ?? [
 
 watch(() => props.keywords, (keywords) => {
   for (const keyword of keywords) {
+    if (keyword.removeKeyword) { ajv.removeKeyword(keyword.removeKeyword) }
     ajv.addKeyword(keyword)
   }
 }, { immediate: true })
@@ -128,6 +129,7 @@ watch(() => props.modelValue, () => { // set default values
 })
 
 defineExpose({
+  ajv,
   validate: () => {
     validateOnly.value = []
     return validate()

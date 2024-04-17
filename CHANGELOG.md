@@ -1,3 +1,10 @@
+## [1.7.3](https://github.com/morgbn/j2u/compare/v1.7.2...v1.7.3) (2024-04-17)
+
+
+### Bug Fixes
+
+* :art: add ability to rm ajv keyword ([027e213](https://github.com/morgbn/j2u/commit/027e2132ab8b4d25dd65bd84e4732da043c8f2c9))
+
 ## [1.7.2](https://github.com/morgbn/j2u/compare/v1.7.1...v1.7.2) (2024-03-15)
 
 

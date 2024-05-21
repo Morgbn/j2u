@@ -1,3 +1,11 @@
+## [1.7.4](https://github.com/morgbn/j2u/compare/v1.7.3...v1.7.4) (2024-05-21)
+
+
+### Bug Fixes
+
+* :adhesive_bandage: allow modelValue to be undefined ([cb6c1b7](https://github.com/morgbn/j2u/commit/cb6c1b7ad3ad78b20768314abe817890066c3e14))
+* :bug: handle same tick update ([ed6ec8e](https://github.com/morgbn/j2u/commit/ed6ec8eeff3d8d40c25f2a07561e35851447ea58))
+
 ## [1.7.3](https://github.com/morgbn/j2u/compare/v1.7.2...v1.7.3) (2024-04-17)
 
 

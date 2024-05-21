@@ -15,6 +15,7 @@
 </template>
 
 <script lang="ts" setup>
+import { defu } from 'defu'
 import Ajv from 'ajv'
 import addFormats from 'ajv-formats'
 import { computed, nextTick, provide, ref, watch } from 'vue'
@@ -106,8 +107,11 @@ function validateWith (path: string) {
   nextTick(validate) // emit -> 1 tick -> updated
 }
 
+let currentTickUpdate = {}
 const onUpdate = (v: IAnyObject, path: string) => {
-  emit('update:modelValue', v)
+  currentTickUpdate = defu(currentTickUpdate, v)
+  emit('update:modelValue', currentTickUpdate)
+  nextTick(() => { currentTickUpdate = {} })
   if (props.validateTrigger === 'change') {
     validateWith(path)
   }

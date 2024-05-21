@@ -34,7 +34,7 @@ import type { Ref, ISchemaObject, IUiSchema, IAnyObject, IConfigComponent, ISche
 const props = withDefaults(defineProps<{
   schema: ISchemaObject
   uiSchema: IUiSchema
-  modelValue: IAnyObject
+  modelValue?: IAnyObject
   path?: string
   readOnly?: boolean
 }>(), {

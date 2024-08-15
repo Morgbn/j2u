@@ -31,6 +31,7 @@ export function getItemInfo(
   requiredEls?: string[]
 ) {
   schema = getSchema(schema, defsSchema)
+  schema = typeof schema === 'boolean' ? {} : schema
   const { component: wrapper, props: fWrapper } = wrappers.item
   const wrapperArgs = fWrapper?.(name, schema, uiSchema) ?? {}
   const order = uiSchema.order

@@ -10,12 +10,12 @@
 
 <script lang="ts" setup>
 const props = defineProps<{
-  modelValue?: string|boolean
+  modelValue?: string | boolean
   readOnly?: boolean
 }>()
-const emit = defineEmits<{(e: 'update:modelValue', value: string|boolean): void }>()
+const emit = defineEmits<{ (e: 'update:modelValue', value: string | boolean): void }>()
 
-function handleInput (event: Event) {
+function handleInput(event: Event) {
   emit('update:modelValue', (event.target as HTMLInputElement).checked)
 }
 </script>

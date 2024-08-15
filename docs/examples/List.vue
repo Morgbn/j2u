@@ -1,6 +1,9 @@
 <template>
   <div class="list-example">
-    <JsonList :items="items" :schema="schema" />
+    <JsonList
+      :items="items"
+      :schema="schema"
+    />
   </div>
 </template>
 

@@ -1,13 +1,13 @@
 import { ref, computed, watch, getCurrentInstance } from 'vue'
-import type { WritableComputedRef } from 'vue'
+import type { WritableComputedRef, ComponentInternalInstance } from 'vue'
 import type { IAnyObject } from '@/types'
 
-export function useLocalProp<T> (
+export function useLocalProp<T>(
   name: string,
   props: IAnyObject,
-  emit?: Function
+  emit?: ComponentInternalInstance['emit']
 ) {
-  const local = ref<T|null>(null)
+  const local = ref<T | null>(null)
   const eventName = `update:${name}`
   const $emit = emit ?? getCurrentInstance()?.emit ?? (() => {})
   watch(() => props[name], v => (local.value = v), { immediate: true })

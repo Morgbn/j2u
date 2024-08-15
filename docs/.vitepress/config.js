@@ -7,7 +7,7 @@ const __dirname = dirname(__filename)
 
 const getItems = folder => readdirSync(resolve(__dirname, `../${folder}`))
   .filter(file => file.endsWith('.md'))
-  .map((path) => ({ text: path.replace(/-|.md/g, ' '), link: `/${folder}/${path.slice(0, -3)}` }))
+  .map(path => ({ text: path.replace(/-|.md/g, ' '), link: `/${folder}/${path.slice(0, -3)}` }))
 
 export default {
   title: 'J2U',
@@ -16,7 +16,7 @@ export default {
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/Morgbn/j2u' },
-      { icon: 'twitter', link: 'https://twitter.com/MorgbnDev' },
+      { icon: 'twitter', link: 'https://twitter.com/MorgbnDev' }
     ],
 
     sidebar: [
@@ -29,16 +29,16 @@ export default {
       {
         text: 'Examples',
         items: getItems('examples')
-      },
+      }
     ],
 
     editLink: {
       pattern: 'https://github.com/morgbn/j2u/edit/main/docs/:path'
     },
-    
+
     footer: {
       message: 'Released under the <a href="https://github.com/morgbn/j2u/blob/main/LICENSE">MIT License</a>.',
       copyright: 'Copyright © 2023-present <a href="https://github.com/morgbn">Morgbn</a>'
     }
-  },
+  }
 }

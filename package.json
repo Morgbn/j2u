@@ -31,7 +31,7 @@
   "types": "./dist/main.d.ts",
   "scripts": {
     "dev": "vitepress dev docs",
-    "lint": "eslint --ext .js,.ts,.vue .",
+    "lint": "eslint .",
     "build": "vue-tsc && vite build",
     "prepack": "vite optimize --force"
   },

@@ -40,7 +40,7 @@ const schema = {
 
 const keywords = [{
   keyword: 'range', // example from https://ajv.js.org/keywords.html#define-keyword-with-validate-function
-  validate ([min, max], data, parentSchema, _dataCxt) {
+  validate([min, max], data, parentSchema, _dataCxt) {
     return parentSchema.exclusiveRange === true
       ? data > min && data < max
       : data >= min && data <= max

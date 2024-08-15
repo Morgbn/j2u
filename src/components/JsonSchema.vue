@@ -1,6 +1,9 @@
 <template>
   <div class="form">
-    <form novalidate @submit="e => emit('native:submit', e)">
+    <form
+      novalidate
+      @submit="e => emit('native:submit', e)"
+    >
       <form-item
         :schema="props.schema"
         :ui-schema="uiSchema"
@@ -9,7 +12,11 @@
         @update:model-value="onUpdate"
         @blur="onBlur"
       />
-      <button type="submit" style="position: absolute; left: -100px; visibility: hidden" @click.prevent="e => emit('submit', e)" />
+      <button
+        type="submit"
+        style="position: absolute; left: -100px; visibility: hidden"
+        @click.prevent="e => emit('submit', e)"
+      />
     </form>
   </div>
 </template>
@@ -28,13 +35,13 @@ const ajv = new Ajv({ allErrors: true, useDefaults: true, strict: 'log' })
 addFormats(ajv)
 
 const props = withDefaults(defineProps<{
-  schema: ISchemaObject,
+  schema: ISchemaObject
   uiSchema?: IUiSchema
   modelValue?: IAnyObject
   components?: IConfigComponent
   wrappers?: IConfigComponent
   errors?: IErrorObject[]
-  validateTrigger?: 'blur'|'change'
+  validateTrigger?: 'blur' | 'change'
   defsSchema?: ISchemaArray
   keywords?: (KeywordDefinition & { removeKeyword?: string })[]
   i18n?: ILocalize
@@ -49,8 +56,7 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: IAnyObject): void
-  (e: 'submit', event: Event): void
-  (e: 'native:submit', event: Event): void
+  (e: 'submit' | 'native:submit', event: Event): void
 }>()
 
 provide('form', computed(() => props.modelValue))
@@ -63,7 +69,7 @@ provide('errors', computed(() => [...internalErrors.value, ...(props.errors ?? [
 
 watch(() => props.keywords, (keywords) => {
   for (const keyword of keywords) {
-    if (keyword.removeKeyword) { ajv.removeKeyword(keyword.removeKeyword) }
+    if (keyword.removeKeyword) ajv.removeKeyword(keyword.removeKeyword)
     ajv.addKeyword(keyword)
   }
 }, { immediate: true })
@@ -76,12 +82,12 @@ const validator = computed(() => {
 })
 
 const validateOnly: Ref<string[]> = ref([])
-function validate (): boolean {
+function validate(): boolean {
   internalErrors.value = []
   const valid = validator.value(props.modelValue)
   if (!valid) {
     const requiredMsg = props.i18n?.required ?? 'this field is required'
-    if (props.i18n) { props.i18n(validator.value.errors) }
+    if (props.i18n) props.i18n(validator.value.errors)
     const errors: IErrorObject[] = []
     const showAll = !validateOnly.value.length
     for (const err of (validator.value.errors ?? [])) {
@@ -100,7 +106,7 @@ function validate (): boolean {
   return true
 }
 
-function validateWith (path: string) {
+function validateWith(path: string) {
   if (!validateOnly.value.includes(path)) {
     validateOnly.value.push(path)
   }
@@ -111,7 +117,7 @@ let currentTickUpdate = {}
 const onUpdate = (v: IAnyObject, path: string) => {
   currentTickUpdate = defu(currentTickUpdate, v)
   emit('update:modelValue', currentTickUpdate)
-  nextTick(() => { currentTickUpdate = {} })
+  nextTick(() => (currentTickUpdate = {}))
   if (props.validateTrigger === 'change') {
     validateWith(path)
   }

@@ -1,4 +1,4 @@
-import type { ErrorObject } from 'ajv'
+import type { ErrorObject, ValidateFunction } from 'ajv'
 import type { JSONSchema7, JSONSchema7Definition } from 'json-schema'
 
 export type { Ref } from 'vue'
@@ -15,27 +15,28 @@ export interface ISchemaObject extends JSONSchema7 {
 
 export interface ISchemaArray extends JSONSchema7 {
   type: 'array'
-  items: JSONSchema7Definition|JSONSchema7Definition[]
+  items: JSONSchema7Definition | JSONSchema7Definition[]
 }
 
 export interface IUiSchema {
   titles?: Array<string>
   order?: number
   properties?: { [key: string]: IUiSchema }
-  disabled?: boolean,
+  disabled?: boolean
   uiType?: string
-  items?: IUiSchema|IUiSchema[]
+  items?: IUiSchema | IUiSchema[]
   cond?: (form: IAnyObject, path: string) => boolean
+  additionalItems?: JSONSchema7Definition
   // component props
-  [key: string]: any
+  [key: string]: unknown
 }
 
-export type IErrorObject = ErrorObject<string, Record<string, any>, unknown>
+export type IErrorObject = ErrorObject<string, Record<string, unknown>, unknown>
 
-type PropsFunction = (propName: string, schema: any, uiSchema?: IUiSchema, wrapper?: IComponent) => IAnyObject
+type PropsFunction = (propName: string, schema: IAnyObject, uiSchema?: IUiSchema, wrapper?: IComponent) => IAnyObject
 
 export interface IComponent {
-  component: any,
+  component: unknown
   props?: PropsFunction
 }
 
@@ -43,10 +44,10 @@ export interface IConfigComponent {
   [key: string]: IComponent
 }
 
-export interface ILocalize extends Function {
+export type ILocalize = ((data: ValidateFunction<IAnyObject>['errors']) => void) & {
   required?: string
 }
 
 export interface IAnyObject {
-  [key:string] : any
+  [key: string]: any // eslint-disable-line @typescript-eslint/no-explicit-any
 }

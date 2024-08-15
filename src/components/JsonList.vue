@@ -1,6 +1,9 @@
 <template>
   <div class="json-list">
-    <slot name="header" v-bind="slotScope">
+    <slot
+      name="header"
+      v-bind="slotScope"
+    >
       <header style="display: flex; margin-bottom: 12px;">
         <input
           v-model="search"
@@ -11,30 +14,52 @@
           <option value="">
             {{ i18n.sortBy }}
           </option>
-          <option v-for="key in keys" :key="key.value" :value="key.value">
+          <option
+            v-for="key in keys"
+            :key="key.value"
+            :value="key.value"
+          >
             {{ key.title }}
           </option>
         </select>
         <div class="btn-group">
-          <button :aria-label="i18n.sortDescending" @click="sortDesc = true">
+          <button
+            :aria-label="i18n.sortDescending"
+            @click="sortDesc = true"
+          >
             ↑
           </button>
-          <button :aria-label="i18n.sortAscending" @click="sortDesc = false">
+          <button
+            :aria-label="i18n.sortAscending"
+            @click="sortDesc = false"
+          >
             ↓
           </button>
           <button @click="exportAsCsv">
             ↗ {{ i18n.exportAsCsv }}
           </button>
-          <button :aria-label="i18n[view === 'card' ? 'toggleViewCard' : 'toggleViewList']" @click="view = view == 'card' ? 'list' : 'card'">
+          <button
+            :aria-label="i18n[view === 'card' ? 'toggleViewCard' : 'toggleViewList']"
+            @click="view = view == 'card' ? 'list' : 'card'"
+          >
             {{ view == 'card' ? '⊞' : '⊟' }}
           </button>
         </div>
       </header>
     </slot>
 
-    <slot v-if="view === 'list'" name="table-header" v-bind="slotScope">
-      <article :style="{ display: 'grid', gridTemplateColumns: `repeat(${keys.length}, minmax(0,1fr))`,gap: '20px', userSelect: 'none' }">
-        <span v-for="key in keys" :key="key.value" :style="{ color: key.value === sortBy ? 'var(--color-sort-by)' : '' }" @click="sortBy == key.value ? (sortDesc ? sortDesc = false : sortBy = '') : (sortBy = key.value) && (sortDesc = true)">
+    <slot
+      v-if="view === 'list'"
+      name="table-header"
+      v-bind="slotScope"
+    >
+      <article :style="{ display: 'grid', gridTemplateColumns: `repeat(${keys.length}, minmax(0,1fr))`, gap: '20px', userSelect: 'none' }">
+        <span
+          v-for="key in keys"
+          :key="key.value"
+          :style="{ color: key.value === sortBy ? 'var(--color-sort-by)' : '' }"
+          @click="sortBy == key.value ? (sortDesc ? sortDesc = false : sortBy = '') : (sortBy = key.value) && (sortDesc = true)"
+        >
           {{ key.value === sortBy ? (sortDesc ? '↑' : '↓') : '' }}
           {{ key.title }}
         </span>
@@ -43,12 +68,21 @@
 
     <slot v-bind="slotScope">
       <div :style="view == 'card' ? { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' } : {}">
-        <slot v-for="item in pageItems" name="item" v-bind="slotScope" :item="item">
+        <slot
+          v-for="item in pageItems"
+          name="item"
+          v-bind="slotScope"
+          :item="item"
+        >
           <article
             :key="item[props.itemKey]"
             :style="view === 'card' ? {} : { display: 'grid', gridTemplateColumns: `repeat(${keys.length}, minmax(0,1fr))`, gap: '20px' }"
           >
-            <p v-for="key in keys" :key="key.value" :style="{ color: key.value === sortBy ? 'var(--color-sort-by)' : '' }">
+            <p
+              v-for="key in keys"
+              :key="key.value"
+              :style="{ color: key.value === sortBy ? 'var(--color-sort-by)' : '' }"
+            >
               <span v-if="view === 'card'">{{ key.title + i18n[':'] }}</span>
               <span>{{ item[key.value] || '' }}</span>
             </p>
@@ -56,18 +90,35 @@
         </slot>
       </div>
     </slot>
-    <slot name="footer" v-bind="slotScope">
+    <slot
+      name="footer"
+      v-bind="slotScope"
+    >
       <footer style="display: flex; justify-content: space-between; user-select: none;">
         <p>
           <span>{{ i18n.itemsPerPage }}</span>&nbsp;
-          <input v-model.number="itemsPerPage" type="number" min="2" step="2" style="width: 40px;">
+          <input
+            v-model.number="itemsPerPage"
+            type="number"
+            min="2"
+            step="2"
+            style="width: 40px;"
+          >
         </p>
         <p>
           <span>{{ i18n.page(page, nPages) }}</span>&nbsp;
-          <button :disabled="page == 1" :aria-label="i18n.prevPage" @click="page--">
+          <button
+            :disabled="page == 1"
+            :aria-label="i18n.prevPage"
+            @click="page--"
+          >
             &lt;
           </button>&nbsp;
-          <button :disabled="page == nPages" :aria-label="i18n.nextPage" @click="page++">
+          <button
+            :disabled="page == nPages"
+            :aria-label="i18n.nextPage"
+            @click="page++"
+          >
             >
           </button>
         </p>
@@ -93,7 +144,7 @@ const props = withDefaults(defineProps<{
   search?: string
   sortBy?: string
   sortDesc?: boolean
-  view?: 'card'|'list'
+  view?: 'card' | 'list'
   sortFunctions?: { [key: string]: ISortFunc }
   i18n?: IAnyObject
 }>(), {
@@ -136,9 +187,9 @@ const i18n = computed(() => ({
 }))
 
 const searchedItems = computed(() => {
-  if (!search.value) { return props.items }
+  if (!search.value) return props.items
   const txt = search.value.toLocaleLowerCase()
-  const getValStr = (v: any) => typeof v === 'string' ? v : (v == null ? '' : (typeof v === 'boolean' ? i18n.value[v ? 'true' : 'false'] : JSON.stringify(v)))
+  const getValStr = (v: unknown) => typeof v === 'string' ? v : (v == null ? '' : (typeof v === 'boolean' ? i18n.value[v ? 'true' : 'false'] : JSON.stringify(v)))
   return props.items
     .filter(item => Object.values(item)
       .find(v => getValStr(v).toLocaleLowerCase().includes(txt)))
@@ -153,7 +204,7 @@ const sorters: Record<string, (attr: string) => ISortFunc> = {
 }
 const sortedItems = computed(() => { // sortedItems
   const items = [...searchedItems.value]
-  if (!sortBy.value) { return items }
+  if (!sortBy.value) return items
   let sortFunc = props.sortFunctions[sortBy.value]
   if (!sortFunc) {
     const model = props.schema.properties[sortBy.value]
@@ -178,7 +229,7 @@ const pageItems = computed(() => {
 const keys = computed(() => {
   const keys = []
   for (const [value, o] of Object.entries(props.schema.properties)) {
-    if (typeof o !== 'object') { continue }
+    if (typeof o !== 'object') continue
     keys.push({ value, title: o.title ?? value })
   }
   return keys

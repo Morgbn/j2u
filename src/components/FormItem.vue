@@ -74,7 +74,7 @@ const uiItems = computed(() => {
 const allItems = computed(() => [...items.value, ...uiItems.value]
   .sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity)))
 
-const onInput = ({ name, path }: { name: string, path: string }, val: any, fromPath?: string) => {
+const onInput = ({ name, path }: { name: string, path: string }, val: unknown, fromPath?: string) => {
   const newVal = { ...props.modelValue } as IAnyObject
   newVal[name] = val
   emit('update:modelValue', newVal, fromPath ?? path)

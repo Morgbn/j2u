@@ -9,8 +9,8 @@ import type { Ref } from 'vue'
 import { inject } from 'vue'
 
 const props = withDefaults(defineProps<{
-  text: (form: any) => string
-  color?: (form: any) => string
+  text: (form: unknown) => string
+  color?: (form: unknown) => string
 }>(), {
   color: () => '#b7b7b7'
 })

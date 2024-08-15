@@ -1,5 +1,8 @@
 <template>
-  <div class="custom-wrapper" :class="{ disabled: props.disabled }">
+  <div
+    class="custom-wrapper"
+    :class="{ disabled: props.disabled }"
+  >
     <label v-if="props.title">
       <span class="hand-emoji">👉</span>
       {{ props.title }}
@@ -8,14 +11,17 @@
     <div class="content">
       <slot />
     </div>
-    <span v-if="props.error" class="error">⚠️{{ props.error.message }}</span>
+    <span
+      v-if="props.error"
+      class="error"
+    >⚠️{{ props.error.message }}</span>
   </div>
 </template>
 
 <script lang="ts" setup>
 const props = withDefaults(defineProps<{
-  title?: string,
-  error?: Record<string, any>,
+  title?: string
+  error?: { message: string }
   disabled?: boolean
   required: boolean
 }>(), {

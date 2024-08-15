@@ -1,11 +1,17 @@
 <template>
-  <div class="pure-control-group" :class="{ 'pure-control-group--disabled': props.disabled }">
+  <div
+    class="pure-control-group"
+    :class="{ 'pure-control-group--disabled': props.disabled }"
+  >
     <label v-if="props.title">
       {{ props.title }}
       <small><em v-if="!props.required">- Optional</em></small>
     </label>
     <slot />
-    <span v-if="props.error" class="pure-form-message">{{ props.error.message }}</span>
+    <span
+      v-if="props.error"
+      class="pure-form-message"
+    >{{ props.error.message }}</span>
   </div>
 </template>
 
@@ -13,8 +19,8 @@
 import type { IErrorObject } from '@/types'
 
 const props = withDefaults(defineProps<{
-  title?: string,
-  error?: IErrorObject,
+  title?: string
+  error?: IErrorObject
   disabled?: boolean
   required: boolean
 }>(), {

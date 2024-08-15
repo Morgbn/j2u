@@ -15,13 +15,13 @@ const props = defineProps<{
   modelValue?: string
   readOnly?: boolean
 }>()
-const emit = defineEmits<{(e: 'update:modelValue', value: string): void }>()
+const emit = defineEmits<{ (e: 'update:modelValue', value: string): void }>()
 
 const date = computed({
-  get () : Date {
+  get(): Date {
     return new Date(props.modelValue)
   },
-  set (val) {
+  set(val) {
     emit('update:modelValue', val?.toISOString().slice(0, 10))
   }
 })

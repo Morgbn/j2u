@@ -21,7 +21,13 @@
           🟩 VALIDATE
         </button>
         <div>
-          <input id="readOnly" v-model="readOnly" type="checkbox" name="readOnly" checked>
+          <input
+            id="readOnly"
+            v-model="readOnly"
+            type="checkbox"
+            name="readOnly"
+            checked
+          >
           <label for="readOnly">ALL READ-ONLY</label>
         </div>
       </div>

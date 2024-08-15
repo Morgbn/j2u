@@ -21,7 +21,13 @@
           🟩 VALIDATE
         </button>
         <div>
-          <input id="readOnly" v-model="readOnly" type="checkbox" name="readOnly" checked>
+          <input
+            id="readOnly"
+            v-model="readOnly"
+            type="checkbox"
+            name="readOnly"
+            checked
+          >
           <label for="readOnly">ALL READ-ONLY</label>
         </div>
       </div>
@@ -33,6 +39,7 @@
 import { ref, defineAsyncComponent } from 'vue'
 import fr from 'ajv-i18n/localize/fr'
 import JsonSchema from '@/components/JsonSchema.vue'
+
 fr.required = 'champ requis'
 
 const readOnly = ref(false)

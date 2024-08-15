@@ -1,5 +1,8 @@
 <template>
-  <template v-for="(tSchema, index) in tuple" :key="index">
+  <template
+    v-for="(tSchema, index) in tuple"
+    :key="index"
+  >
     <component
       :is="tSchema.wrapper"
       v-bind="tSchema.wrapperArgs"
@@ -69,10 +72,10 @@ import { getItemInfo } from '@/utils/item'
 import type { Ref, ISchemaArray, IUiSchema, IAnyObject, IConfigComponent, IErrorObject } from '@/types'
 
 const props = withDefaults(defineProps<{
-  name: string,
+  name: string
   schema: ISchemaArray
   uiSchema: IUiSchema
-  modelValue: Array<any>|null
+  modelValue: Array<unknown> | null
   path: string
   readOnly?: boolean
   required?: boolean
@@ -80,18 +83,18 @@ const props = withDefaults(defineProps<{
   modelValue: () => ([])
 })
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: Array<any>, path: string): void
+  (e: 'update:modelValue', value: Array<unknown>, path: string): void
   (e: 'blur', ev: Event, path: string): void
 }>()
 
-const form = inject('form') as Ref<IAnyObject>
+const form = inject('form') as IAnyObject
 const defsSchema = inject('defsSchema') as Ref<ISchemaArray>
 const components = inject('components') as Ref<IConfigComponent>
 const wrappers = inject('wrappers') as Ref<IConfigComponent>
 const errors = inject('errors') as Ref<IErrorObject[]>
 
 const tuple = computed(() => {
-  if (!Array.isArray(props.schema.items)) { return null }
+  if (!Array.isArray(props.schema.items)) return null
   const uiSchemas = Array.isArray(props.uiSchema?.items) ? props.uiSchema.items : []
   return props.schema.items.map((schema, i) =>
     getItemInfo(`${i}`, schema, uiSchemas[i] ?? {}, props.path, components.value, wrappers.value, defsSchema.value, errors.value))
@@ -105,11 +108,11 @@ const tupleValues = computed(() => (props.modelValue && Array.isArray(props.sche
 const items = computed(() => {
   const schema = tuple.value ? props.schema.additionalItems : props.schema.items
   const uiSchemas = tuple.value ? props.uiSchema?.additionalItems : props.uiSchema?.items
-  if (!props.modelValue || !schema || Array.isArray(schema)) { return null }
+  if (!props.modelValue || !schema || Array.isArray(schema)) return null
   const items = []
   const max = Math.min(props.modelValue.length, props.schema.maxItems ?? Infinity)
   for (let i = tupleValues.value.length; i < max; i++) {
-    items.push(getItemInfo(`${i}`, schema, uiSchemas ?? {}, props.path, components.value, wrappers.value, defsSchema.value, errors.value))
+    items.push(getItemInfo(`${i}`, schema, (uiSchemas ?? {}) as IUiSchema, props.path, components.value, wrappers.value, defsSchema.value, errors.value))
   }
   return items
 })
@@ -132,18 +135,18 @@ watch(() => props.modelValue, (v) => {
   }
 }, { immediate: true })
 
-function updateValue (action: (arg: Array<any>) => void, path?: string) {
+function updateValue(action: (arg: Array<unknown>) => void, path?: string) {
   const newVal = [...(props.modelValue ?? [])]
   action(newVal)
   emit('update:modelValue', newVal, path ?? props.path)
 }
 
-const cond = (item: any) => !item.cond || item.cond(form, item.path)
+const cond = (item: ReturnType<typeof getItemInfo>) => !item.cond || item.cond(form, item.path)
 
-const onInput = (i: number, val: any, path?: string) =>
+const onInput = (i: number, val: unknown, path?: string) =>
   updateValue(newVal => newVal.splice(i, 1, val), path)
 
-const addNewItem = (item?: any) => updateValue(newVal => newVal.push(item))
+const addNewItem = (item?: unknown) => updateValue(newVal => newVal.push(item))
 
 const swap = (i: number, n: number) =>
   updateValue(newVal => ([newVal[i + n], newVal[i]] = [newVal[i], newVal[i + n]]))

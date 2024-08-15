@@ -1,20 +1,38 @@
 <template>
   <div class="form-array">
-    <template v-for="(item, i) in props.array" :key="i">
+    <template
+      v-for="(item, i) in props.array"
+      :key="i"
+    >
       {{ i + props.offset }})
-      <button v-if="!readOnly && i" @click.prevent="emit('swap', i, -1)">
+      <button
+        v-if="!readOnly && i"
+        @click.prevent="emit('swap', i, -1)"
+      >
         ▲
       </button>
-      <button v-if="!readOnly && i < props.array.length - 1" @click.prevent="emit('swap', i, 1)">
+      <button
+        v-if="!readOnly && i < props.array.length - 1"
+        @click.prevent="emit('swap', i, 1)"
+      >
         ▼
       </button>
-      <button v-if="!readOnly" @click.prevent="emit('remove', i)">
+      <button
+        v-if="!readOnly"
+        @click.prevent="emit('remove', i)"
+      >
         ✕
       </button>
-      <slot :item="item" :index="i" />
+      <slot
+        :item="item"
+        :index="i"
+      />
       <br>
     </template>
-    <button v-if="!readOnly && (props.array.length < maxItems)" @click.prevent="emit('add')">
+    <button
+      v-if="!readOnly && (props.array.length < maxItems)"
+      @click.prevent="emit('add')"
+    >
       Add
     </button>
   </div>
@@ -22,7 +40,7 @@
 
 <script lang="ts" setup>
 const props = withDefaults(defineProps<{
-  array: Array<any>
+  array: Array<unknown>
   readOnly?: boolean
   maxItems?: number
   minItems?: number

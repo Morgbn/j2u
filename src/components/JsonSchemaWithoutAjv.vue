@@ -1,6 +1,9 @@
 <template>
   <div class="form">
-    <form novalidate @submit="e => emit('native:submit', e)">
+    <form
+      novalidate
+      @submit="e => emit('native:submit', e)"
+    >
       <form-item
         :schema="props.schema"
         :ui-schema="uiSchema"
@@ -9,7 +12,11 @@
         @update:model-value="onUpdate"
         @blur="onBlur"
       />
-      <button type="submit" style="position: absolute; left: -100px; visibility: hidden" @click.prevent="e => emit('submit', e)" />
+      <button
+        type="submit"
+        style="position: absolute; left: -100px; visibility: hidden"
+        @click.prevent="e => emit('submit', e)"
+      />
     </form>
   </div>
 </template>
@@ -23,13 +30,13 @@ import FormItem from '@/components/FormItem.vue'
 import type { Ref, ISchemaObject, IUiSchema, IAnyObject, IConfigComponent, IErrorObject, ISchemaArray, ILocalize } from '@/types'
 
 const props = withDefaults(defineProps<{
-  schema: ISchemaObject,
+  schema: ISchemaObject
   uiSchema?: IUiSchema
   modelValue?: IAnyObject
   components?: IConfigComponent
   wrappers?: IConfigComponent
   errors?: IErrorObject[]
-  validateTrigger?: 'blur'|'change'
+  validateTrigger?: 'blur' | 'change'
   defsSchema?: ISchemaArray
   i18n?: ILocalize
   readOnly?: boolean
@@ -44,8 +51,7 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: IAnyObject): void
-  (e: 'submit', event: Event): void
-  (e: 'native:submit', event: Event): void
+  (e: 'submit' | 'native:submit', event: Event): void
 }>()
 
 provide('form', computed(() => props.modelValue))
@@ -57,12 +63,12 @@ const internalErrors: Ref<IErrorObject[]> = ref([])
 provide('errors', computed(() => [...internalErrors.value, ...(props.errors ?? [])]))
 
 const validateOnly: Ref<string[]> = ref([])
-function validate (): boolean {
+function validate(): boolean {
   internalErrors.value = []
   const valid = props.validator(props.modelValue)
   if (!valid) {
     const requiredMsg = props.i18n?.required ?? 'this field is required'
-    if (props.i18n) { props.i18n(props.validator.errors) }
+    if (props.i18n) props.i18n(props.validator.errors)
     const errors: IErrorObject[] = []
     const showAll = !validateOnly.value.length
     for (const err of (props.validator.errors ?? [])) {
@@ -81,7 +87,7 @@ function validate (): boolean {
   return true
 }
 
-function validateWith (path: string) {
+function validateWith(path: string) {
   if (!validateOnly.value.includes(path)) {
     validateOnly.value.push(path)
   }

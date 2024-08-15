@@ -5,7 +5,7 @@
  * @param filename file name
  * @param contentType ex: text/csv;charset=utf-8;
  */
-export function downloadBlob (content: string, filename: string, contentType: string) {
+export function downloadBlob(content: string, filename: string, contentType: string) {
   // Create a blob
   const blob = new Blob([content], { type: contentType })
   const url = URL.createObjectURL(blob)
@@ -22,7 +22,7 @@ export function downloadBlob (content: string, filename: string, contentType: st
  *
  * @param data array
  */
-export function arrayToCsv (data: any[]): string {
+export function arrayToCsv(data: unknown[][]): string {
   return data.map(row =>
     row
       .map(String) // convert every value to String

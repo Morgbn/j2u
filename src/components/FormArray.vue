@@ -123,6 +123,7 @@ const itemsValues = computed(() => (props.modelValue && Array.isArray(props.sche
 
 const maxItems = computed(() => (props.schema.maxItems ?? Infinity) - (tuple.value?.length ?? 0))
 const minItems = computed(() => (props.schema.minItems ?? -Infinity) - (tuple.value?.length ?? 0))
+const isItemsObj = computed(() => !Array.isArray(props.schema.items) && typeof props.schema.items !== 'boolean' && props.schema.items.type === 'object')
 
 const arrayWrapperArgs = computed(() => wrappers.value.array.props?.(props.name, props.schema, props.uiSchema) ?? {})
 
@@ -145,7 +146,10 @@ const cond = (item: ReturnType<typeof getItemInfo>) => !item.cond || item.cond(f
 const onInput = (i: number, val: unknown, path?: string) =>
   updateValue(newVal => newVal.splice(i, 1, val), path)
 
-const addNewItem = (item?: unknown) => updateValue(newVal => newVal.push(item))
+const addNewItem = (item?: unknown) => {
+  if (isItemsObj.value && !item) item = {}
+  updateValue(newVal => newVal.push(item))
+}
 
 const swap = (i: number, n: number) =>
   updateValue(newVal => ([newVal[i + n], newVal[i]] = [newVal[i], newVal[i + n]]))

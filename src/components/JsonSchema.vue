@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defu } from 'defu'
+import { createDefu } from 'defu'
 import Ajv from 'ajv'
 import addFormats from 'ajv-formats'
 import { computed, nextTick, provide, ref, watch } from 'vue'
@@ -30,6 +30,13 @@ import { defaultComponents, defaultWrappers, rootComponents } from '@/utils/defa
 import FormItem from '@/components/FormItem.vue'
 
 import type { Ref, ISchemaObject, IUiSchema, IAnyObject, IConfigComponent, IErrorObject, ISchemaArray, KeywordDefinition, ILocalize } from '@/types'
+
+const defuReplaceArray = createDefu((obj, key, value) => {
+  if (Array.isArray(obj[key]) || Array.isArray(value)) {
+    obj[key] = value
+    return true
+  }
+})
 
 const ajv = new Ajv({ allErrors: true, useDefaults: true, strict: 'log' })
 addFormats(ajv)
@@ -115,7 +122,7 @@ function validateWith(path: string) {
 
 let currentTickUpdate = {}
 const onUpdate = (v: IAnyObject, path: string) => {
-  currentTickUpdate = defu(currentTickUpdate, v)
+  currentTickUpdate = defuReplaceArray(currentTickUpdate, v)
   emit('update:modelValue', currentTickUpdate)
   nextTick(() => (currentTickUpdate = {}))
   if (props.validateTrigger === 'change') {

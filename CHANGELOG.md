@@ -1,3 +1,12 @@
+## [1.7.5](https://github.com/Morgbn/j2u/compare/v1.7.4...v1.7.5) (2024-08-15)
+
+
+### Bug Fixes
+
+* :adhesive_bandage: boolean type check ([f4b4155](https://github.com/Morgbn/j2u/commit/f4b41554928070e03e2626b1b5e9c8b2d0596704))
+* :bug: add item in array ([216d01c](https://github.com/Morgbn/j2u/commit/216d01c6afc9f4975495c3165fc36049b16c766a))
+* :bug: tuple initialization ([881cf60](https://github.com/Morgbn/j2u/commit/881cf60fd2c23303c526c46bbd055cb3a22bb14b))
+
 ## [1.7.4](https://github.com/morgbn/j2u/compare/v1.7.3...v1.7.4) (2024-05-21)
 
 

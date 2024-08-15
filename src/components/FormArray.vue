@@ -128,9 +128,8 @@ const arrayWrapperArgs = computed(() => wrappers.value.array.props?.(props.name,
 
 watch(() => props.modelValue, (v) => {
   const val = v ?? []
-  const { items, minItems } = props.schema
-  if (Array.isArray(items) && val.length < (minItems ?? 0)) {
-    const newVal = items.map((_, i) => val[i])
+  if (tuple.value && val.length < tuple.value.length) {
+    const newVal = tuple.value.map((_, i) => val[i])
     emit('update:modelValue', newVal, props.path)
   }
 }, { immediate: true })

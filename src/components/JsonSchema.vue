@@ -147,6 +147,7 @@ watch(() => props.modelValue, () => { // set default values
 
 defineExpose({
   ajv,
+  validator,
   validate: () => {
     validateOnly.value = []
     return validate()

@@ -1,3 +1,10 @@
+## [1.7.6](https://github.com/Morgbn/j2u/compare/v1.7.5...v1.7.6) (2024-10-15)
+
+
+### Bug Fixes
+
+* :art: expose validator ([17bfb0a](https://github.com/Morgbn/j2u/commit/17bfb0abbf44067a745cf9a51d844f537b789330))
+
 ## [1.7.5](https://github.com/Morgbn/j2u/compare/v1.7.4...v1.7.5) (2024-08-15)
 
 

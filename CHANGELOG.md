@@ -1,3 +1,10 @@
+## [1.7.9](https://github.com/Morgbn/j2u/compare/v1.7.8...v1.7.9) (2025-03-04)
+
+
+### Bug Fixes
+
+* :art: allow modelValue to be null ([7c827d4](https://github.com/Morgbn/j2u/commit/7c827d4f5cab0d1a31d545d25e5bbfc9122037bc))
+
 ## [1.7.8](https://github.com/Morgbn/j2u/compare/v1.7.7...v1.7.8) (2025-03-04)
 
 

@@ -1,4 +1,4 @@
-import type { ISchema, IUiSchema, IConfigComponent, ISchemaArray, IAnyObject, IErrorObject } from '@/types'
+import type { ISchema, IUiSchema, IConfigComponent, IDefSchema, IAnyObject, IErrorObject } from '@/types'
 
 function getType(schema: ISchema, components: IConfigComponent): string {
   if (typeof schema !== 'object') return 'object'
@@ -9,14 +9,17 @@ function getType(schema: ISchema, components: IConfigComponent): string {
   return type ?? 'object'
 }
 
-function getSchema(schema: ISchema, defs: ISchemaArray): ISchema {
+function getSchema(schema: ISchema, defs: IDefSchema | IDefSchema[]): ISchema {
   if (typeof schema === 'boolean' || !schema.$ref) return schema
   const { $ref, ...full } = schema
-  const attrs = $ref.split('#')[1].split('/').slice(1)
-  let el: IAnyObject = defs
-  while (attrs.length && el) el = el[attrs.shift() as string]
-  if (!el) throw new Error(`Can not find ${$ref} in defsSchema`)
-  return { ...el, ...full }
+  const arrOfDefs = Array.isArray(defs) ? defs : [defs]
+  for (const d of arrOfDefs) {
+    const attrs: string[] = $ref.split('#')[1].split('/').slice(1)
+    let el: IAnyObject = d
+    while (attrs.length && el) el = el[attrs.shift()!]
+    if (el) return { ...el, ...full }
+  }
+  throw new Error(`Can not find ${$ref} in defsSchema`)
 }
 
 export function getItemInfo(
@@ -26,7 +29,7 @@ export function getItemInfo(
   rootPath: string,
   components: IConfigComponent,
   wrappers: IConfigComponent,
-  defsSchema: ISchemaArray,
+  defsSchema: IDefSchema | IDefSchema[],
   errors?: IErrorObject[] | null,
   requiredEls?: string[]
 ) {

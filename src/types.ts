@@ -31,6 +31,11 @@ export interface IUiSchema {
   [key: string]: unknown
 }
 
+export interface IDefSchema {
+  $id: string
+  [key: string]: unknown
+}
+
 export type IErrorObject = ErrorObject<string, Record<string, unknown>, unknown>
 
 type PropsFunction = (propName: string, schema: IAnyObject, uiSchema?: IUiSchema, wrapper?: IComponent) => IAnyObject

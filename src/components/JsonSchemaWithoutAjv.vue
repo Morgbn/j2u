@@ -27,7 +27,7 @@ import type { ValidateFunction } from 'ajv'
 import { defaultComponents, defaultWrappers, rootComponents } from '@/utils/defaultComponents'
 import FormItem from '@/components/FormItem.vue'
 
-import type { Ref, ISchemaObject, IUiSchema, IAnyObject, IConfigComponent, IErrorObject, ISchemaArray, ILocalize } from '@/types'
+import type { Ref, ISchemaObject, IUiSchema, IAnyObject, IConfigComponent, IErrorObject, ILocalize, IDefSchema } from '@/types'
 
 const props = withDefaults(defineProps<{
   schema: ISchemaObject
@@ -37,7 +37,7 @@ const props = withDefaults(defineProps<{
   wrappers?: IConfigComponent
   errors?: IErrorObject[]
   validateTrigger?: 'blur' | 'change'
-  defsSchema?: ISchemaArray
+  defsSchema?: IDefSchema | IDefSchema[]
   i18n?: ILocalize
   readOnly?: boolean
   validator: ValidateFunction<IAnyObject>

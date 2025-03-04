@@ -29,7 +29,7 @@ import { computed, nextTick, provide, ref, watch } from 'vue'
 import { defaultComponents, defaultWrappers, rootComponents } from '@/utils/defaultComponents'
 import FormItem from '@/components/FormItem.vue'
 
-import type { Ref, ISchemaObject, IUiSchema, IAnyObject, IConfigComponent, IErrorObject, ISchemaArray, KeywordDefinition, ILocalize } from '@/types'
+import type { Ref, ISchemaObject, IUiSchema, IAnyObject, IConfigComponent, IErrorObject, KeywordDefinition, ILocalize, IDefSchema } from '@/types'
 
 const defuReplaceArray = createDefu((obj, key, value) => {
   if (Array.isArray(obj[key]) || Array.isArray(value)) {
@@ -49,7 +49,7 @@ const props = withDefaults(defineProps<{
   wrappers?: IConfigComponent
   errors?: IErrorObject[]
   validateTrigger?: 'blur' | 'change'
-  defsSchema?: ISchemaArray
+  defsSchema?: IDefSchema | IDefSchema[]
   keywords?: (KeywordDefinition & { removeKeyword?: string })[]
   i18n?: ILocalize
   readOnly?: boolean
@@ -81,15 +81,21 @@ watch(() => props.keywords, (keywords) => {
   }
 }, { immediate: true })
 
-const validator = computed(() => {
-  if (props.defsSchema) {
-    return ajv.addSchema(props.defsSchema).compile(props.schema)
+const validator = ref<ReturnType<typeof ajv.compile>>()
+const defIdAdded = new Set()
+watch(() => [props.schema, props.defsSchema] as const, ([schema, defs]) => {
+  for (const d of Array.isArray(defs) ? defs : [defs]) {
+    if (d && !defIdAdded.has(d.$id)) {
+      ajv.addSchema(d)
+      defIdAdded.add(d.$id)
+    }
   }
-  return ajv.compile(props.schema)
-})
+  if (schema) validator.value = ajv.compile(schema)
+}, { immediate: true })
 
 const validateOnly: Ref<string[]> = ref([])
 function validate(): boolean {
+  if (!validator.value) throw new Error('validator is not defined, check props.schema')
   internalErrors.value = []
   const valid = validator.value(props.modelValue)
   if (!valid) {
@@ -137,6 +143,7 @@ const onBlur = (ev: Event, path: string) => {
 }
 
 watch(() => props.modelValue, () => { // set default values
+  if (!validator.value) throw new Error('validator is not defined, check props.schema')
   const stringified = JSON.stringify(props.modelValue)
   const form = JSON.parse(stringified)
   validator.value(form)

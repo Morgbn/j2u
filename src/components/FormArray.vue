@@ -69,7 +69,7 @@
 import { inject, computed, watch } from 'vue'
 import { getItemInfo } from '@/utils/item'
 
-import type { Ref, ISchemaArray, IUiSchema, IAnyObject, IConfigComponent, IErrorObject } from '@/types'
+import type { Ref, ISchemaArray, IUiSchema, IAnyObject, IConfigComponent, IErrorObject, IDefSchema } from '@/types'
 
 const props = withDefaults(defineProps<{
   name: string
@@ -88,7 +88,7 @@ const emit = defineEmits<{
 }>()
 
 const form = inject('form') as IAnyObject
-const defsSchema = inject('defsSchema') as Ref<ISchemaArray>
+const defsSchema = inject('defsSchema') as Ref<IDefSchema | IDefSchema[]>
 const components = inject('components') as Ref<IConfigComponent>
 const wrappers = inject('wrappers') as Ref<IConfigComponent>
 const errors = inject('errors') as Ref<IErrorObject[]>

@@ -105,12 +105,15 @@ const tupleValues = computed(() => (props.modelValue && Array.isArray(props.sche
   ? props.modelValue.slice(0, props.schema.items.length)
   : [])
 
+const schemaMaxItems = computed(() => 'maxItems' in props.schema && typeof props.schema.maxItems === 'number' ? props.schema.maxItems : Infinity)
+const schemaMinItems = computed(() => 'minItems' in props.schema && typeof props.schema.minItems === 'number' ? props.schema.minItems : -Infinity)
+
 const items = computed(() => {
-  const schema = tuple.value ? props.schema.additionalItems : props.schema.items
+  const schema = tuple.value ? ('additionalItems' in props.schema ? props.schema.additionalItems : []) : props.schema.items
   const uiSchemas = tuple.value ? props.uiSchema?.additionalItems : props.uiSchema?.items
   if (!props.modelValue || !schema || Array.isArray(schema)) return null
   const items = []
-  const max = Math.min(props.modelValue.length, props.schema.maxItems ?? Infinity)
+  const max = Math.min(props.modelValue.length, schemaMaxItems.value)
   for (let i = tupleValues.value.length; i < max; i++) {
     items.push(getItemInfo(`${i}`, schema, (uiSchemas ?? {}) as IUiSchema, props.path, components.value, wrappers.value, defsSchema.value, errors.value))
   }
@@ -121,8 +124,8 @@ const itemsValues = computed(() => (props.modelValue && Array.isArray(props.sche
   ? props.modelValue.slice(props.schema.items.length)
   : props.modelValue)
 
-const maxItems = computed(() => (props.schema.maxItems ?? Infinity) - (tuple.value?.length ?? 0))
-const minItems = computed(() => (props.schema.minItems ?? -Infinity) - (tuple.value?.length ?? 0))
+const maxItems = computed(() => schemaMaxItems.value - (tuple.value?.length ?? 0))
+const minItems = computed(() => schemaMinItems.value - (tuple.value?.length ?? 0))
 const isItemsObj = computed(() => !Array.isArray(props.schema.items) && typeof props.schema.items !== 'boolean' && props.schema.items.type === 'object')
 
 const arrayWrapperArgs = computed(() => wrappers.value.array.props?.(props.name, props.schema, props.uiSchema) ?? {})

@@ -58,9 +58,11 @@ const components = inject('components') as Ref<IConfigComponent>
 const wrappers = inject('wrappers') as Ref<IConfigComponent>
 const errors = inject('errors') as Ref<IErrorObject[]>
 
+const schemaRequired = computed(() => 'required' in props.schema && Array.isArray(props.schema.required) ? props.schema.required : [])
+
 const items = computed(() => {
   return Object.entries(props.schema?.properties || {})
-    .map(([name, schema]: [string, ISchema]) => getItemInfo(name, schema, props.uiSchema.properties?.[name] || {}, props.path, components.value, wrappers.value, defsSchema.value, errors.value, props.schema.required ?? []))
+    .map(([name, schema]: [string, ISchema]) => getItemInfo(name, schema, props.uiSchema.properties?.[name] || {}, props.path, components.value, wrappers.value, defsSchema.value, errors.value, schemaRequired.value))
 })
 
 const uiItems = computed(() => {
@@ -68,7 +70,7 @@ const uiItems = computed(() => {
   const uiProps = props.uiSchema.properties || {}
   return Object.keys(uiProps)
     .filter(key => !added[key])
-    .map(key => getItemInfo(key, uiProps[key], uiProps[key], props.path, components.value, wrappers.value, defsSchema.value, errors.value, props.schema.required ?? []))
+    .map(key => getItemInfo(key, uiProps[key], uiProps[key], props.path, components.value, wrappers.value, defsSchema.value, errors.value, schemaRequired.value))
 })
 
 const allItems = computed(() => [...items.value, ...uiItems.value]

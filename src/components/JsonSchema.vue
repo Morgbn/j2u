@@ -44,7 +44,7 @@ addFormats(ajv)
 const props = withDefaults(defineProps<{
   schema: ISchemaObject
   uiSchema?: IUiSchema
-  modelValue?: IAnyObject
+  modelValue?: IAnyObject | null
   components?: IConfigComponent
   wrappers?: IConfigComponent
   errors?: IErrorObject[]

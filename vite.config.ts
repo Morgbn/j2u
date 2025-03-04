@@ -1,6 +1,5 @@
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import typescript2 from 'rollup-plugin-typescript2'
 import dts from 'vite-plugin-dts'
 
 import { defineConfig } from 'vite'
@@ -14,20 +13,8 @@ export default defineConfig({
   plugins: [
     vue(),
     dts({
-      insertTypesEntry: true
-    }),
-    typescript2({
-      check: false,
-      include: ['src/components/**/*.vue'],
-      tsconfigOverride: {
-        compilerOptions: {
-          outDir: 'dist',
-          sourceMap: true,
-          declaration: true,
-          declarationMap: true
-        }
-      },
-      exclude: ['vite.config.ts']
+      insertTypesEntry: true,
+      rollupTypes: true
     })
   ],
   build: {

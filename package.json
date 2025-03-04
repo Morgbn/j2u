@@ -21,7 +21,8 @@
   "exports": {
     ".": {
       "import": "./dist/j2u.es.js",
-      "require": "./dist/j2u.umd.js"
+      "require": "./dist/j2u.umd.js",
+      "types": "./dist/main.d.ts"
     },
     "./dist/j2u.css": {
       "import": "./dist/j2u.css",
@@ -32,7 +33,7 @@
   "scripts": {
     "dev": "vitepress dev docs",
     "lint": "eslint .",
-    "build": "vue-tsc && vite build",
+    "build": "vite build",
     "prepack": "vite optimize --force"
   },
   "peerDependencies": {
@@ -48,7 +49,6 @@
     "eslint": "^9.5.0",
     "eslint-plugin-jsdoc": "^50.6.3",
     "json-schema": "^0.4.0",
-    "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^5.4.5",
     "vite": "^6.2.0",
     "vite-plugin-dts": "^4.5.3",

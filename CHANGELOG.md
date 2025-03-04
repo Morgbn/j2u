@@ -1,3 +1,10 @@
+## [1.7.8](https://github.com/Morgbn/j2u/compare/v1.7.7...v1.7.8) (2025-03-04)
+
+
+### Bug Fixes
+
+* :label: type export ([c1b66b2](https://github.com/Morgbn/j2u/commit/c1b66b20d653f7535ce70745502943db24f975db))
+
 ## [1.7.7](https://github.com/Morgbn/j2u/compare/v1.7.6...v1.7.7) (2025-03-04)
 
 

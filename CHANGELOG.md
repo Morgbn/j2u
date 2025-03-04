@@ -1,3 +1,11 @@
+## [1.7.7](https://github.com/Morgbn/j2u/compare/v1.7.6...v1.7.7) (2025-03-04)
+
+
+### Bug Fixes
+
+* :art: better defsSchema logic & type ([21e509c](https://github.com/Morgbn/j2u/commit/21e509c46a6cc76310eaa6403c1965fe70a74054))
+* :label: types check & import ([473368d](https://github.com/Morgbn/j2u/commit/473368df9519b8af64ddba6a64bd5de233735a78))
+
 ## [1.7.6](https://github.com/Morgbn/j2u/compare/v1.7.5...v1.7.6) (2024-10-15)
 
 
